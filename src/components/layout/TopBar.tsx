@@ -32,7 +32,7 @@ const TopBarItem = ({ icon, text }: TopBarItemProps) => {
 
 export const TopBar = () => {
   return (
-    <div className="bg-gray-50 border-b border-gray-200 py-2">
+    <div className="bg-gray-50 border-b border-gray-200 py-2 hidden md:block">
       <div className="max-w-[1400px] mx-auto px-4 md:px-6">
         <div className="flex justify-end items-center gap-6 text-[11px] text-gray-600">
           <TopBarItem icon="award" text="CERTIFICATES" />

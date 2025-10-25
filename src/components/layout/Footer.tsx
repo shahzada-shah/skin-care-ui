@@ -135,7 +135,7 @@ export const Footer = () => {
             <div
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="text-xs tracking-[0.2em] text-gray-500 hover:text-gray-300 transition-all duration-300 uppercase font-light group"
+              className="text-xs tracking-[0.2em] text-gray-500 hover:text-gray-300 transition-all duration-300 uppercase font-light group text-center px-4"
               aria-label="Development credits"
             >
               <span className="inline-block group-hover:scale-[1.02] transition-transform duration-300">
@@ -150,9 +150,9 @@ export const Footer = () => {
                   : 'max-h-0 opacity-0'
               }`}
             >
-              <p className="text-[11px] text-gray-600 text-center leading-relaxed pt-2">
+              <p className="text-[11px] text-gray-600 text-center leading-relaxed pt-2 px-4">
                 <span className="inline-block">Shahzada Shah - Lead Senior Developer</span>
-                <span className="mx-2 text-gray-700">|</span>
+                <span className="mx-2 text-gray-700 hidden sm:inline">|</span>
                 <span className="inline-block">Jimmy Carrera - Lead Designer</span>
               </p>
             </div>
