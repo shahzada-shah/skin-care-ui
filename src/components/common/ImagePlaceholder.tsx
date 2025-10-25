@@ -28,6 +28,8 @@ export const ImagePlaceholder = ({
     <div
       className={`flex items-center justify-center bg-gray-200 ${className}`}
       style={{ aspectRatio: `${width}/${height}` }}
+      role="img"
+      aria-label={`${label} placeholder ${width} by ${height} pixels`}
     >
       <div className="flex flex-col items-center justify-center p-8 border-2 border-dashed border-gray-400 rounded-lg mx-8 my-8 min-w-[200px]">
         <Image size={48} className="text-gray-400 mb-4" strokeWidth={1.5} />

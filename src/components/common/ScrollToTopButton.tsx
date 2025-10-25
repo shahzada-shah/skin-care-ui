@@ -1,3 +1,17 @@
+/**
+ * ScrollToTopButton Component
+ *
+ * Fixed button that appears when user scrolls down and smoothly scrolls back to top when clicked.
+ * Features:
+ * - Auto-shows after scrolling 400px down
+ * - Smooth fade-in/out transitions
+ * - Subtle bounce animation
+ * - Positioned at bottom-right corner
+ * - Accessible with proper ARIA label
+ *
+ * @component
+ */
+
 import { useState, useEffect } from 'react';
 import { ArrowUp } from 'lucide-react';
 
@@ -5,6 +19,10 @@ export const ScrollToTopButton = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
+    /**
+     * Toggles button visibility based on scroll position
+     * Shows button after scrolling past 400px threshold
+     */
     const toggleVisibility = () => {
       if (window.scrollY > 400) {
         setIsVisible(true);
@@ -20,6 +38,9 @@ export const ScrollToTopButton = () => {
     };
   }, []);
 
+  /**
+   * Smoothly scrolls the page to the top
+   */
   const scrollToTop = () => {
     window.scrollTo({
       top: 0,

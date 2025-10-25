@@ -1,3 +1,17 @@
+/**
+ * Footer Component
+ *
+ * Main footer component with navigation links, contact information, and development credits.
+ * Features:
+ * - Organized footer sections (Service, Additional, Shop, Information)
+ * - Contact details and location
+ * - Hover-activated development credits with auto-fade
+ * - Responsive grid layout
+ * - Professional styling with smooth transitions
+ *
+ * @component
+ */
+
 import { Link } from 'react-router-dom';
 import { useState, useRef } from 'react';
 
@@ -49,6 +63,9 @@ export const Footer = () => {
     },
   };
 
+  /**
+   * Handles mouse enter event - shows credits and clears any pending hide timeout
+   */
   const handleMouseEnter = () => {
     if (timeoutRef.current) {
       clearTimeout(timeoutRef.current);
@@ -56,6 +73,9 @@ export const Footer = () => {
     setShowCredits(true);
   };
 
+  /**
+   * Handles mouse leave event - hides credits after 2 second delay
+   */
   const handleMouseLeave = () => {
     timeoutRef.current = window.setTimeout(() => {
       setShowCredits(false);
