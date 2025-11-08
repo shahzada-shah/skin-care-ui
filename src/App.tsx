@@ -18,7 +18,9 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { routes } from './config/routes';
 import { Loader } from './components/common';
 
-const router = createBrowserRouter(routes);
+const router = createBrowserRouter(routes, {
+  basename: import.meta.env.BASE_URL,
+});
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);

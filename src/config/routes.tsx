@@ -15,6 +15,7 @@ import { ContactsPage } from '../pages/ContactsPage';
 import { LoginPage } from '../pages/LoginPage';
 import { SignUpPage } from '../pages/SignUpPage';
 import { CheckoutPage } from '../pages/CheckoutPage';
+import { NotFoundPage } from '../pages/NotFoundPage';
 
 export const routes: RouteObject[] = [
   {
@@ -49,6 +50,10 @@ export const routes: RouteObject[] = [
         path: 'checkout',
         element: <CheckoutPage />,
       },
+      {
+        path: '*',
+        element: <NotFoundPage />,
+      },
     ],
   },
   // Auth pages without MainLayout
@@ -59,6 +64,11 @@ export const routes: RouteObject[] = [
   {
     path: '/signup',
     element: <SignUpPage />,
+  },
+  // Catch-all 404 route
+  {
+    path: '*',
+    element: <NotFoundPage />,
   },
 ];
 
