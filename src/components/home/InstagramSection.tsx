@@ -45,10 +45,9 @@ export const InstagramSection = () => {
               follow us on INSTAGRAM
             </h2>
             <a
-              href="https://instagram.com/luxeskincare"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 bg-black text-white px-6 md:px-8 py-3 md:py-3.5 rounded-full text-sm md:text-base font-medium hover:bg-gray-800 transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-lg self-start"
+              href="#"
+              onClick={(e) => e.preventDefault()}
+              className="inline-flex items-center gap-2 bg-black text-white px-6 md:px-8 py-3 md:py-3.5 rounded-full text-sm md:text-base font-medium hover:bg-gray-800 transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-lg self-start cursor-pointer"
               aria-label="Visit Luxe Instagram profile"
             >
               @luxeskincare
@@ -79,9 +78,8 @@ export const InstagramSection = () => {
               {instagramPosts.map((post) => (
                 <a
                   key={post.id}
-                  href="https://instagram.com/luxeskincare"
-                  target="_blank"
-                  rel="noopener noreferrer"
+                  href="#"
+                  onClick={(e) => e.preventDefault()}
                   className="flex-shrink-0 w-56 md:w-64 lg:w-72 group cursor-pointer"
                   role="listitem"
                   aria-label={`Instagram post ${post.id}`}

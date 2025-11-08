@@ -124,7 +124,8 @@ export const PromotionsSection = () => {
           </h2>
           <a
             href="#"
-            className="text-sm md:text-base font-medium underline hover:no-underline transition-all duration-300 hover:text-gray-600 hover:translate-x-1 inline-block"
+            onClick={(e) => e.preventDefault()}
+            className="text-sm md:text-base font-medium underline hover:no-underline transition-all duration-300 hover:text-gray-600 hover:translate-x-1 inline-block cursor-pointer"
           >
             view all
           </a>

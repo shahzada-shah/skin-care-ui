@@ -30,7 +30,8 @@ interface CategoryCircleProps {
 export const CategoryCircle = ({ label, href, imageUrl }: CategoryCircleProps) => {
   return (
     <a
-      href={href}
+      href="#"
+      onClick={(e) => e.preventDefault()}
       className="flex flex-col items-center gap-3 group cursor-pointer flex-shrink-0"
       aria-label={`Browse ${label} category`}
     >

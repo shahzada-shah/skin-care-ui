@@ -12,7 +12,6 @@
  * @component
  */
 
-import { Link } from 'react-router-dom';
 import { useState, useRef } from 'react';
 
 export const Footer = () => {
@@ -95,12 +94,13 @@ export const Footer = () => {
                 <ul className="space-y-3">
                   {section.links.map((link, index) => (
                     <li key={index}>
-                      <Link
-                        to={link.href}
-                        className="text-sm text-gray-400 hover:text-white transition-colors duration-300 inline-block hover:translate-x-0.5 transform"
+                      <a
+                        href="#"
+                        onClick={(e) => e.preventDefault()}
+                        className="text-sm text-gray-400 hover:text-white transition-colors duration-300 inline-block hover:translate-x-0.5 transform cursor-pointer"
                       >
                         {link.label}
-                      </Link>
+                      </a>
                     </li>
                   ))}
                 </ul>
