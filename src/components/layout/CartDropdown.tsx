@@ -11,6 +11,7 @@
  */
 
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { X, ShoppingBag, Image as ImageIcon, Minus, Plus } from 'lucide-react';
 import { storage } from '../../utils/storage';
 import { CartItem } from '../../types';
@@ -128,16 +129,19 @@ export const CartDropdown = ({ isOpen }: CartDropdownProps) => {
                 <span className="text-sm text-gray-600">Total:</span>
                 <span className="text-lg font-semibold text-gray-900">${total}</span>
               </div>
-              <button className="w-full bg-black text-white py-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-2 mb-2 hover:shadow-lg active:scale-[0.98]">
+              <Link
+                to="/checkout"
+                className="w-full bg-black text-white py-3 rounded-lg text-sm font-medium hover:bg-gray-800 transition-all duration-300 flex items-center justify-center gap-2 mb-2 hover:shadow-lg active:scale-[0.98]"
+              >
                 <ShoppingBag size={16} />
                 Checkout
-              </button>
-              <a
-                href="/cart"
+              </Link>
+              <Link
+                to="/checkout"
                 className="block text-center text-sm text-gray-600 hover:text-black transition-colors duration-200 py-2 hover:underline"
               >
-                Go to Cart
-              </a>
+                View Cart
+              </Link>
             </div>
           </>
         )}

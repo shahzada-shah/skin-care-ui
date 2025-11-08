@@ -12,6 +12,9 @@ import { ProductDetailPage } from '../pages/ProductDetailPage';
 import { NewPage } from '../pages/NewPage';
 import { SalesPage } from '../pages/SalesPage';
 import { ContactsPage } from '../pages/ContactsPage';
+import { LoginPage } from '../pages/LoginPage';
+import { SignUpPage } from '../pages/SignUpPage';
+import { CheckoutPage } from '../pages/CheckoutPage';
 
 export const routes: RouteObject[] = [
   {
@@ -42,7 +45,20 @@ export const routes: RouteObject[] = [
         path: 'contacts',
         element: <ContactsPage />,
       },
+      {
+        path: 'checkout',
+        element: <CheckoutPage />,
+      },
     ],
+  },
+  // Auth pages without MainLayout
+  {
+    path: '/login',
+    element: <LoginPage />,
+  },
+  {
+    path: '/signup',
+    element: <SignUpPage />,
   },
 ];
 
@@ -53,6 +69,9 @@ export const ROUTES = {
   NEW: '/new',
   SALES: '/sales',
   CONTACTS: '/contacts',
+  LOGIN: '/login',
+  SIGNUP: '/signup',
+  CHECKOUT: '/checkout',
 } as const;
 
 export const getProductRoute = (productId: string) => `${ROUTES.PRODUCT}/${productId}`;
