@@ -75,8 +75,16 @@ export const CartDropdown = ({ isOpen }: CartDropdownProps) => {
                   className="flex gap-3 px-4 py-3 hover:bg-gray-50 transition-colors duration-200 animate-fadeIn"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
-                  <div className="w-20 h-20 bg-gradient-to-br from-gray-50 to-gray-100 rounded flex items-center justify-center flex-shrink-0">
-                    <ImageIcon size={24} className="text-gray-300" strokeWidth={1.5} />
+                  <div className="w-20 h-20 bg-gradient-to-br from-gray-50 to-gray-100 rounded flex items-center justify-center flex-shrink-0 overflow-hidden">
+                    {item.imageUrl ? (
+                      <img
+                        src={item.imageUrl}
+                        alt={item.name}
+                        className="w-full h-full object-cover"
+                      />
+                    ) : (
+                      <ImageIcon size={24} className="text-gray-300" strokeWidth={1.5} />
+                    )}
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="text-sm font-medium text-gray-900 truncate">{item.name}</h4>
