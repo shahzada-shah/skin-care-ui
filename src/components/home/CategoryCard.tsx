@@ -1,25 +1,11 @@
 /**
  * CategoryCard Component
  *
- * Interactive card for displaying collection categories with images and CTAs.
- * Used in the hero section to showcase women's and men's collections.
- *
- * Features:
- * - Hover animations (subtle scale, opacity changes)
- * - Gradient overlay for text readability
- * - Responsive text sizing
- * - Interactive button with hover effects
+ * Elegant, minimalistic card for displaying skincare collections.
+ * Features sophisticated hover effects and modern glass-morphism design.
  *
  * @component
- * @example
- * <CategoryCard
- *   title="женское"
- *   imageUrl="/women-collection.jpg"
- *   subtitle="НОВЫЕ КОЛЛЕКЦИИ ЖЕНСКОЙ ОДЕЖДЫ ОТ CONTE"
- * />
  */
-
-import { ImagePlaceholder } from '../common/ImagePlaceholder';
 
 interface CategoryCardProps {
   title: string;
@@ -27,42 +13,56 @@ interface CategoryCardProps {
   subtitle: string;
 }
 
-export const CategoryCard = ({ title, subtitle }: CategoryCardProps) => {
+export const CategoryCard = ({ title, subtitle, imageUrl }: CategoryCardProps) => {
   return (
-    <div className="relative h-[500px] md:h-full overflow-hidden group cursor-pointer bg-white">
-      {/* Background Image with Gradient Overlay */}
+    <div className="relative h-[500px] md:h-full overflow-hidden group cursor-pointer bg-neutral-50">
+      {/* Background Image with Smooth Zoom */}
       <div className="absolute inset-0">
-        <ImagePlaceholder
-          width={720}
-          height={980}
-          label="WIREFRAME IMAGE"
-          className="h-full w-full"
+        <img
+          src={imageUrl}
+          alt={title}
+          className="h-full w-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"
         />
-        <div className="absolute bottom-0 left-0 right-0 h-1/3 bg-gradient-to-t from-white/90 to-transparent pointer-events-none" />
+        
+        {/* Subtle Gradient Overlay */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-black/5 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/10 via-transparent to-transparent" />
       </div>
 
-      {/* Content Overlay */}
-      <div className="relative h-full flex flex-col justify-between p-6 md:p-8">
-        {/* Title - Subtle lift on hover */}
-        <div className="transition-all duration-500 group-hover:transform group-hover:-translate-y-1">
-          <h2 className="text-3xl md:text-4xl font-light uppercase tracking-wide transition-all duration-500 group-hover:text-4xl md:group-hover:text-5xl">
-            {title}
-          </h2>
+      {/* Content Overlay - More Refined */}
+      <div className="relative h-full flex flex-col justify-between p-8 md:p-10 lg:p-12">
+        {/* Title - Subtle and Elegant */}
+        <div className="transition-all duration-700 ease-out group-hover:transform group-hover:-translate-y-1">
+          <div className="inline-block backdrop-blur-sm bg-white/5 px-3 py-1.5 rounded-lg border border-white/10 transition-all duration-500 group-hover:bg-white/10 group-hover:backdrop-blur group-hover:border-white/20">
+            <h2 className="text-2xl md:text-3xl font-light uppercase tracking-[0.3em] text-white/95 drop-shadow-md transition-all duration-700">
+              {title}
+            </h2>
+          </div>
         </div>
 
-        {/* Subtitle and CTA Button */}
-        <div className="transition-all duration-500 group-hover:transform group-hover:translate-y-1">
-          <p className="text-xs md:text-sm mb-3 md:mb-4 max-w-[240px] md:max-w-[280px] leading-relaxed opacity-80 group-hover:opacity-100 transition-opacity duration-300">
-            {subtitle}
-          </p>
-          <button className="bg-black text-white px-6 md:px-8 py-2.5 md:py-3 rounded-full text-xs md:text-sm font-medium uppercase tracking-wide hover:bg-gray-900 transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-lg">
-            catalog
+        {/* Subtitle and CTA - Refined and Subtle */}
+        <div className="space-y-4 transition-all duration-700 ease-out group-hover:transform group-hover:translate-y-0.5">
+          {/* Subtitle - More Understated */}
+          <div className="backdrop-blur bg-white/5 px-4 py-3 rounded-xl max-w-[300px] border border-white/10 transition-all duration-500 group-hover:bg-white/10 group-hover:backdrop-blur-md group-hover:border-white/20">
+            <p className="text-xs md:text-sm leading-relaxed text-white/90 font-light tracking-wide">
+              {subtitle}
+            </p>
+          </div>
+          
+          {/* Refined Minimalist Button */}
+          <button className="group/btn relative overflow-hidden bg-white/90 backdrop-blur-sm text-black px-7 py-2.5 rounded-full text-xs font-medium uppercase tracking-[0.2em] transition-all duration-500 hover:bg-black hover:text-white hover:scale-[1.01] hover:shadow-xl hover:shadow-black/10 active:scale-[0.99] border border-white/40 hover:border-black">
+            <span className="relative z-10 transition-all duration-500">Shop Now</span>
+            {/* Subtle Shine Effect */}
+            <div className="absolute inset-0 -translate-x-full group-hover/btn:translate-x-full transition-transform duration-1000 bg-gradient-to-r from-transparent via-white/20 to-transparent" />
           </button>
         </div>
       </div>
 
-      {/* Subtle dark overlay on hover */}
-      <div className="absolute inset-0 bg-black opacity-0 group-hover:opacity-5 transition-opacity duration-500 pointer-events-none" />
+      {/* Very Subtle Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none" />
+      
+      {/* Minimal Inner Border */}
+      <div className="absolute inset-0 ring-1 ring-inset ring-white/0 group-hover:ring-white/5 transition-all duration-700 pointer-events-none" />
     </div>
   );
 };
