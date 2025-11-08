@@ -5,6 +5,7 @@
  * Features email/password login with social login options.
  *
  * @component
+ * @version 1.0
  */
 
 import { useState } from 'react';
