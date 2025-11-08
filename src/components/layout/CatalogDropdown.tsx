@@ -12,7 +12,6 @@
  * @param {boolean} props.isOpen - Controls dropdown visibility
  */
 
-import { Link } from 'react-router-dom';
 import { DROPDOWN_ANIMATION, CONTAINER_MAX_WIDTH } from '../../constants';
 import type { DropdownProps } from '../../types';
 
@@ -57,13 +56,14 @@ export const CatalogDropdown = ({ isOpen }: DropdownProps) => {
               <ul className="space-y-2.5" role="group" aria-label={category.title}>
                 {category.items.map((item) => (
                   <li key={item}>
-                    <Link
-                      to={`/catalog/${item.toLowerCase()}`}
-                      className="text-sm text-gray-600 hover:text-black transition-colors duration-200 block"
+                    <a
+                      href="#"
+                      onClick={(e) => e.preventDefault()}
+                      className="text-sm text-gray-600 hover:text-black transition-colors duration-200 block cursor-pointer"
                       role="menuitem"
                     >
                       {item}
-                    </Link>
+                    </a>
                   </li>
                 ))}
               </ul>
