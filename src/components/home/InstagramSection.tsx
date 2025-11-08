@@ -7,14 +7,13 @@
  * Features:
  * - Horizontally scrollable gallery of Instagram posts
  * - Gradient fade on edges for visual polish
- * - Direct link to Instagram profile (@conteofficial)
- * - Hashtag call-to-action (#ConteXme)
- * - Multi-language support
+ * - Direct link to Instagram profile
+ * - Hashtag call-to-action
  *
  * Layout:
  * - Header with title and Instagram CTA button
  * - Description with hashtag information
- * - Scrolling gallery of posts (9 items)
+ * - Scrolling gallery of posts (6 items)
  *
  * Post Cards:
  * - Fixed width: 224px (mobile), 256px (tablet), 288px (desktop)
@@ -24,19 +23,13 @@
  * @component
  */
 
-import { ImagePlaceholder } from '../common/ImagePlaceholder';
-
-
 const instagramPosts = [
-  { id: 1, aspectRatio: '3/4' },
-  { id: 2, aspectRatio: '3/4' },
-  { id: 3, aspectRatio: '3/4' },
-  { id: 4, aspectRatio: '3/4' },
-  { id: 5, aspectRatio: '3/4' },
-  { id: 6, aspectRatio: '3/4' },
-  { id: 7, aspectRatio: '3/4' },
-  { id: 8, aspectRatio: '3/4' },
-  { id: 9, aspectRatio: '3/4' },
+  { id: 1, imageUrl: '/images/instagram/ig_01.png', aspectRatio: '3/4' },
+  { id: 2, imageUrl: '/images/instagram/ig_02.png', aspectRatio: '3/4' },
+  { id: 3, imageUrl: '/images/instagram/ig_03.png', aspectRatio: '3/4' },
+  { id: 4, imageUrl: '/images/instagram/ig_4.png', aspectRatio: '3/4' },
+  { id: 5, imageUrl: '/images/instagram/ig_5.png', aspectRatio: '3/4' },
+  { id: 6, imageUrl: '/images/instagram/ig_06.png', aspectRatio: '3/4' },
 ];
 
 export const InstagramSection = () => {
@@ -52,19 +45,19 @@ export const InstagramSection = () => {
               follow us on INSTAGRAM
             </h2>
             <a
-              href="https://instagram.com/luxefashion"
+              href="https://instagram.com/luxeskincare"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-2 bg-black text-white px-6 md:px-8 py-3 md:py-3.5 rounded-full text-sm md:text-base font-medium hover:bg-gray-800 transition-all duration-300 hover:scale-105 active:scale-95 hover:shadow-lg self-start"
               aria-label="Visit Luxe Instagram profile"
             >
-              @luxefashion
+              @luxeskincare
             </a>
           </div>
 
           {/* Call to Action Description */}
           <p className="text-sm md:text-base text-gray-600 leading-relaxed max-w-3xl">
-            Upload a photo in your favorite Luxe outfit on Instagram with the tag #LuxeXme and get a chance to be featured on the online store page.
+            Share your LUXE skincare routine on Instagram with the tag #LuxeGlow and get a chance to be featured on our online store page.
           </p>
         </div>
 
@@ -86,7 +79,7 @@ export const InstagramSection = () => {
               {instagramPosts.map((post) => (
                 <a
                   key={post.id}
-                  href="https://instagram.com/luxefashion"
+                  href="https://instagram.com/luxeskincare"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex-shrink-0 w-56 md:w-64 lg:w-72 group cursor-pointer"
@@ -95,11 +88,10 @@ export const InstagramSection = () => {
                 >
                   <div className="relative overflow-hidden rounded-lg shadow-md hover:shadow-2xl transition-all duration-500 group-hover:scale-[1.02]">
                     <div style={{ aspectRatio: post.aspectRatio }}>
-                      <ImagePlaceholder
-                        width={400}
-                        height={533}
-                        label="INSTAGRAM POST"
-                        className="h-full rounded-lg"
+                      <img
+                        src={post.imageUrl}
+                        alt={`LUXE Skincare Instagram post ${post.id}`}
+                        className="w-full h-full object-cover rounded-lg"
                       />
                     </div>
 

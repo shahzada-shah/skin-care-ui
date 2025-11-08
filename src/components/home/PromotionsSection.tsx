@@ -1,63 +1,82 @@
 /**
  * PromotionsSection Component
  *
- * Displays current promotions and special offers in a grid layout.
- * Features promotional cards with images, titles, descriptions, and CTAs.
+ * Displays LUXE skincare bundle promotions in a scrollable carousel.
+ * Features bundle cards with images, titles, descriptions, and CTAs.
  *
  * Layout:
- * - Mobile: 1 column
- * - Tablet: 2 columns
- * - Desktop: 4 columns
+ * - Horizontal scroll carousel with smooth scrolling
+ * - Navigation arrows for easy browsing
  *
  * Card Types:
  * 1. Standard: Image + Title + CTA button
  * 2. Special (card 2): Title + Description + CTA (text-only, gray background)
  *
  * Features:
- * - Navigation arrows for carousel functionality (visual only currently)
+ * - Scroll-based carousel navigation
  * - Hover effects on cards (shadow elevation)
  * - Responsive button animations
- * - Multi-language support
  *
  * @component
  */
 
 import { ChevronLeft, ChevronRight } from 'lucide-react';
-import { ImagePlaceholder } from '../common/ImagePlaceholder';
-
+import { useCarousel } from '../../utils/useCarousel';
 
 export const PromotionsSection = () => {
-  
+  const { scrollContainerRef, showLeftArrow, showRightArrow, scroll, checkScroll } = useCarousel();
 
   const promotions = [
     {
       id: 1,
-      image: '🦋',
-      title: "kids' tights collection",
-      ctaText: 'go to models',
-      imagePosition: 'left' as const,
+      imageUrl: '/images/products/luxe-hydration-bundle.png',
+      title: 'hydration bundle',
+      description: 'Complete moisture therapy for all skin types',
+      price: '$189.99',
+      originalPrice: '$249.99',
+      ctaText: 'shop bundle',
     },
     {
       id: 2,
-      image: '👙',
-      title: 'update your wardrobe',
-      description: 'Bright and comfortable models for an active summer',
-      ctaText: 'go to models',
-      imagePosition: 'right' as const,
+      title: 'radiant skin essentials',
+      description: 'Curated bundles for glowing, healthy skin at special prices',
+      ctaText: 'explore bundles',
     },
     {
       id: 3,
-      image: '👗',
-      title: 'corset collection',
-      ctaText: 'go to models',
-      imagePosition: 'left' as const,
+      imageUrl: '/images/products/luxe-clarifying-bundle.png',
+      title: 'clarifying bundle',
+      description: 'Purifying skincare for clear, balanced complexion',
+      price: '$169.99',
+      originalPrice: '$219.99',
+      ctaText: 'shop bundle',
     },
     {
       id: 4,
-      image: '🩱',
-      title: 'savage collection',
-      ctaText: 'go to models',
-      imagePosition: 'left' as const,
+      imageUrl: '/images/products/luxe-anti-aging-bundle.png',
+      title: 'anti-aging bundle',
+      description: 'Powerful ingredients for youthful, firm skin',
+      price: '$209.99',
+      originalPrice: '$279.99',
+      ctaText: 'shop bundle',
+    },
+    {
+      id: 5,
+      imageUrl: '/images/products/luxe-botanical-bundle.png',
+      title: 'botanical bundle',
+      description: 'Natural plant-based skincare for gentle nourishment',
+      price: '$159.99',
+      originalPrice: '$199.99',
+      ctaText: 'shop bundle',
+    },
+    {
+      id: 6,
+      imageUrl: '/images/products/luxe-glow-bundle.png',
+      title: 'glow bundle',
+      description: 'Luminous complexion essentials for radiant skin',
+      price: '$179.99',
+      originalPrice: '$229.99',
+      ctaText: 'shop bundle',
     },
   ];
 
@@ -67,7 +86,7 @@ export const PromotionsSection = () => {
         {/* Section Header with View All Link */}
         <div className="flex items-center justify-between mb-8 md:mb-12">
           <h2 className="text-3xl md:text-4xl lg:text-5xl font-light tracking-wide">
-            promotions
+            promotion bundles
           </h2>
           <a
             href="#"
@@ -79,23 +98,40 @@ export const PromotionsSection = () => {
 
         {/* Carousel Container */}
         <div className="relative">
-          {/* Navigation Arrows */}
-          <button
-            className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 md:-translate-x-6 z-10 w-10 h-10 md:w-12 md:h-12 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg"
-            aria-label="Previous promotion"
-          >
-            <ChevronLeft size={24} />
-          </button>
-          <button
-            className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 md:translate-x-6 z-10 w-10 h-10 md:w-12 md:h-12 bg-black text-white rounded-full flex items-center justify-center hover:bg-gray-800 transition-all duration-300 hover:scale-110 active:scale-95 shadow-lg"
-            aria-label="Next promotion"
-          >
-            <ChevronRight size={24} />
-          </button>
+          {/* Left Navigation Arrow */}
+          {showLeftArrow && (
+            <button
+              onClick={() => scroll('left')}
+              className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95"
+              aria-label="Previous promotions"
+            >
+              <ChevronLeft size={24} />
+            </button>
+          )}
 
-          {/* Promotions Grid */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
-            {promotions.map((promo, index) => (
+          {/* Right Navigation Arrow */}
+          {showRightArrow && (
+            <button
+              onClick={() => scroll('right')}
+              className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 w-12 h-12 bg-white rounded-full shadow-lg items-center justify-center hover:shadow-xl transition-all duration-300 hover:scale-110 active:scale-95"
+              aria-label="Next promotions"
+            >
+              <ChevronRight size={24} />
+            </button>
+          )}
+
+          {/* Promotions Carousel */}
+          <div
+            ref={scrollContainerRef}
+            onScroll={checkScroll}
+            className="overflow-x-auto scrollbar-hide scroll-smooth"
+            style={{
+              scrollbarWidth: 'none',
+              msOverflowStyle: 'none',
+            }}
+          >
+            <div className="grid grid-flow-col auto-cols-[280px] md:auto-cols-[320px] lg:auto-cols-[360px] gap-4 md:gap-6 pb-4">
+              {promotions.map((promo, index) => (
               <div
                 key={promo.id}
                 className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-500 group cursor-pointer"
@@ -120,26 +156,41 @@ export const PromotionsSection = () => {
                 ) : (
                   /* Standard Image Card */
                   <div className="flex flex-col h-full">
-                    <div className="aspect-[3/4] overflow-hidden">
-                      <ImagePlaceholder
-                        width={600}
-                        height={800}
-                        label="PRODUCT IMAGE"
-                        className="h-full group-hover:scale-105 transition-transform duration-700"
-                      />
+                    <div className="aspect-[3/4] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+                      {promo.imageUrl ? (
+                        <img
+                          src={promo.imageUrl}
+                          alt={promo.title}
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                        />
+                      ) : null}
                     </div>
                     <div className="p-6 md:p-8 flex flex-col flex-1">
-                      <h3 className="text-base md:text-lg font-normal mb-4 md:mb-6 leading-snug flex-1">
+                      <h3 className="text-base md:text-lg font-normal mb-2 leading-snug">
                         {promo.title}
                       </h3>
-                      <button className="w-full py-3 px-6 border-2 border-black rounded-full text-sm font-medium hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 active:scale-95">
+                      {promo.description && (
+                        <p className="text-xs md:text-sm text-gray-600 mb-3 leading-relaxed">
+                          {promo.description}
+                        </p>
+                      )}
+                      {promo.price && (
+                        <div className="flex items-center gap-2 mb-4">
+                          <span className="text-lg md:text-xl font-semibold">{promo.price}</span>
+                          {promo.originalPrice && (
+                            <span className="text-sm text-gray-400 line-through">{promo.originalPrice}</span>
+                          )}
+                        </div>
+                      )}
+                      <button className="w-full py-3 px-6 border-2 border-black rounded-full text-sm font-medium hover:bg-black hover:text-white transition-all duration-300 hover:scale-105 active:scale-95 mt-auto">
                         {promo.ctaText}
                       </button>
                     </div>
                   </div>
                 )}
               </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>

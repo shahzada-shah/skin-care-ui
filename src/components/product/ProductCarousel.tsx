@@ -14,10 +14,9 @@
  * />
  */
 
-import { useState, useRef } from 'react';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 import { ProductCard } from './ProductCard';
-
+import { useCarousel } from '../../utils/useCarousel';
 
 interface Product {
   id: string;
@@ -37,38 +36,7 @@ export const ProductCarousel = ({
   viewAllLink,
   products,
 }: ProductCarouselProps) => {
-  
-  const scrollContainerRef = useRef<HTMLDivElement>(null);
-  const [showLeftArrow, setShowLeftArrow] = useState(false);
-  const [showRightArrow, setShowRightArrow] = useState(true);
-
-  const checkScroll = () => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    setShowLeftArrow(container.scrollLeft > 0);
-    setShowRightArrow(
-      container.scrollLeft < container.scrollWidth - container.clientWidth - 10
-    );
-  };
-
-  const scroll = (direction: 'left' | 'right') => {
-    const container = scrollContainerRef.current;
-    if (!container) return;
-
-    const scrollAmount = container.clientWidth * 0.8;
-    const newScrollPosition =
-      direction === 'left'
-        ? container.scrollLeft - scrollAmount
-        : container.scrollLeft + scrollAmount;
-
-    container.scrollTo({
-      left: newScrollPosition,
-      behavior: 'smooth',
-    });
-
-    setTimeout(checkScroll, 300);
-  };
+  const { scrollContainerRef, showLeftArrow, showRightArrow, scroll, checkScroll } = useCarousel();
 
   return (
     <div className="relative">

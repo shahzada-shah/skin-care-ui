@@ -79,7 +79,7 @@ export const WishlistDropdown = ({ isOpen }: WishlistDropdownProps) => {
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
                   <div className="w-16 h-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded flex items-center justify-center flex-shrink-0 overflow-hidden">
-                    {item.imageUrl ? (
+                    {item.imageUrl && item.imageUrl.trim() !== '' ? (
                       <img
                         src={item.imageUrl}
                         alt={item.name}
