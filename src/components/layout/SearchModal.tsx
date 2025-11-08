@@ -22,17 +22,17 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
   const [searchQuery, setSearchQuery] = useState('');
 
   const trendingSearches = [
-    'Dresses',
-    'Shirts',
-    'Outerwear',
-    'Accessories',
+    'Serums',
+    'Moisturizers',
+    'Cleansers',
+    'Face Masks',
     'New Arrivals',
   ];
 
   const recentSearches = [
-    'Classic Shirts',
-    'Winter Collection',
-    'Sweaters',
+    'Hydrating Serum',
+    'Anti-Aging Bundle',
+    'Vitamin C',
   ];
 
   useEffect(() => {
@@ -154,10 +154,10 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
                 Search Results
               </h3>
               {[
-                { name: "Classic White Shirt", category: 'Shirts', price: '89.00' },
-                { name: 'Black Midi Dress', category: 'Dresses', price: '159.00' },
-                { name: 'Wool Sweater', category: 'Sweaters', price: '129.00' },
-                { name: 'Leather Jacket', category: 'Outerwear', price: '299.00' },
+                { name: "LUXE Hydrating Serum", category: 'Serums', price: '89.99' },
+                { name: 'LUXE Night Repair Cream', category: 'Moisturizers', price: '129.99' },
+                { name: 'LUXE Gentle Cleanser', category: 'Cleansers', price: '45.99' },
+                { name: 'LUXE Vitamin C Complex', category: 'Treatments', price: '79.99' },
               ].map((product, index) => (
                 <button
                   key={product.name}

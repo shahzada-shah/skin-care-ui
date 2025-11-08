@@ -153,14 +153,6 @@ export const Header = () => {
               </Link>
             </div>
 
-            <Link
-              to="/contacts"
-              className="hidden xl:block text-sm font-medium hover:text-gray-600 transition-colors duration-200 relative group whitespace-nowrap uppercase"
-            >
-              CONTACTS
-              <span className="absolute -bottom-1.5 left-0 w-full h-0.5 bg-black transition-all duration-200 scale-x-0 group-hover:scale-x-100" />
-            </Link>
-
             <div
               ref={profileRef}
               className="hidden lg:flex items-center gap-1 relative"

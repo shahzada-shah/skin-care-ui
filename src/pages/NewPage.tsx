@@ -28,6 +28,8 @@ import { useProductFilters } from '../hooks';
 
 
 export const NewPage = () => {
+  // Filter to show only new products
+  const newProducts = mockProducts.filter(product => product.isNew);
   
   const {
     filteredProducts,
@@ -37,14 +39,14 @@ export const NewPage = () => {
     toggleSize,
     updateFilter,
     clearFilters,
-  } = useProductFilters(mockProducts);
+  } = useProductFilters(newProducts);
 
   return (
     <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-8 md:py-12">
       {/* Page Header */}
       <ProductListingHeader
         title="New Arrivals"
-        subtitle="Discover our latest collection"
+        subtitle="Discover our latest skincare innovations"
         count={filteredProducts.length}
       />
 

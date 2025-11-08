@@ -23,7 +23,7 @@ export const useProductFilters = (products: Product[]) => {
   const [filters, setFilters] = useState<FilterState>({
     categories: [],
     priceMin: 0,
-    priceMax: 500,
+    priceMax: 200,
     colors: [],
     sizes: [],
   });
@@ -91,7 +91,7 @@ export const useProductFilters = (products: Product[]) => {
     setFilters({
       categories: [],
       priceMin: 0,
-      priceMax: 500,
+      priceMax: 200,
       colors: [],
       sizes: [],
     });

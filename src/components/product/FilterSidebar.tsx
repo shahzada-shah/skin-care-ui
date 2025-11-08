@@ -63,7 +63,18 @@ export const FilterSidebar = ({
   onPriceChange,
   onClearFilters,
 }: FilterSidebarProps) => {
-  const categories = ['Clothing', 'Jeans', 'Leggings', 'Lingerie', 'Tights', 'Socks'];
+  const categories = [
+    'Serums',
+    'Moisturizers',
+    'Cleansers',
+    'Treatments',
+    'Eye Care',
+    'Face Masks',
+    'Sun Protection',
+    'Toners',
+    'Exfoliators',
+    'Lip Care',
+  ];
 
   const colors = [
     { name: 'White', value: 'White', hex: '#FFFFFF' },
@@ -78,7 +89,7 @@ export const FilterSidebar = ({
     { name: 'Orange', value: 'Orange', hex: '#FB923C' },
   ];
 
-  const sizes = ['32', '34', '36', '38', '40', '42', '44', '46', '48'];
+  const sizes = ['10ml', '15ml', '30ml', '50ml', '100ml', '200ml'];
 
   return (
     <aside className="w-full lg:w-64 flex-shrink-0">
@@ -102,7 +113,7 @@ export const FilterSidebar = ({
                   type="checkbox"
                   checked={filters.categories.includes(category)}
                   onChange={() => onToggleCategory(category)}
-                  className="w-4 h-4 border-gray-300 rounded text-black focus:ring-black"
+                  className="w-4 h-4 border-gray-300 rounded text-black focus:ring-black focus:ring-offset-0 accent-black"
                 />
                 <span className="ml-3 text-sm text-gray-700 group-hover:text-black transition-colors">
                   {category}
@@ -128,7 +139,7 @@ export const FilterSidebar = ({
                 type="number"
                 value={filters.priceMax || ''}
                 onChange={(e) => onPriceChange('priceMax', Number(e.target.value))}
-                placeholder="500"
+                placeholder="200"
                 className="w-full px-3 py-2 border border-gray-300 rounded text-sm focus:outline-none focus:border-black"
               />
             </div>
@@ -138,44 +149,17 @@ export const FilterSidebar = ({
           </div>
         </FilterSection>
 
-        {/* Color */}
-        <FilterSection title="COLOR">
-          <div className="grid grid-cols-2 gap-3">
-            {colors.map((color) => (
-              <label key={color.value} className="flex items-center cursor-pointer group">
-                <input
-                  type="checkbox"
-                  checked={filters.colors.includes(color.value)}
-                  onChange={() => onToggleColor(color.value)}
-                  className="sr-only"
-                />
-                <div
-                  className={`w-5 h-5 rounded-full border-2 flex-shrink-0 transition-all ${
-                    filters.colors.includes(color.value)
-                      ? 'border-black ring-2 ring-black ring-offset-2'
-                      : 'border-gray-300'
-                  }`}
-                  style={{ backgroundColor: color.hex }}
-                />
-                <span className="ml-2 text-sm text-gray-700 group-hover:text-black transition-colors">
-                  {color.name}
-                </span>
-              </label>
-            ))}
-          </div>
-        </FilterSection>
-
-        {/* Size */}
-        <FilterSection title="SIZE">
-          <div className="grid grid-cols-5 gap-2">
+        {/* Volume */}
+        <FilterSection title="VOLUME">
+          <div className="grid grid-cols-3 gap-2">
             {sizes.map((size) => (
               <button
                 key={size}
                 onClick={() => onToggleSize(size)}
-                className={`px-3 py-2 border text-sm transition-all duration-200 ${
+                className={`px-2 py-2.5 border text-xs transition-all duration-200 rounded ${
                   filters.sizes.includes(size)
-                    ? 'border-black bg-black text-white'
-                    : 'border-gray-300 hover:border-black hover:bg-black hover:text-white'
+                    ? 'border-black bg-black text-white shadow-sm'
+                    : 'border-gray-300 hover:border-gray-400'
                 }`}
               >
                 {size}

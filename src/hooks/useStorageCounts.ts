@@ -5,8 +5,8 @@
  * Listens to storage events and automatically updates counts when items are added/removed.
  *
  * @returns {Object} Item counts
- * @returns {number} wishlistCount - Number of items in wishlist
- * @returns {number} cartCount - Number of items in cart
+ * @returns {number} wishlistCount - Number of unique items in wishlist
+ * @returns {number} cartCount - Total quantity of all items in cart
  *
  * @example
  * const { wishlistCount, cartCount } = useStorageCounts();
@@ -22,7 +22,10 @@ export const useStorageCounts = () => {
   useEffect(() => {
     const updateCounts = () => {
       setWishlistCount(storage.getWishlist().length);
-      setCartCount(storage.getCart().length);
+      // Sum up all quantities in cart items
+      const cart = storage.getCart();
+      const totalQuantity = cart.reduce((sum, item) => sum + item.quantity, 0);
+      setCartCount(totalQuantity);
     };
 
     updateCounts();

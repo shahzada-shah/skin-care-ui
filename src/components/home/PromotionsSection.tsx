@@ -9,22 +9,26 @@
  * - Navigation arrows for easy browsing
  *
  * Card Types:
- * 1. Standard: Image + Title + CTA button
+ * 1. Standard: Image + Title + CTA button + Wishlist heart
  * 2. Special (card 2): Title + Description + CTA (text-only, gray background)
  *
  * Features:
  * - Scroll-based carousel navigation
+ * - Wishlist/favorite functionality
  * - Hover effects on cards (shadow elevation)
  * - Responsive button animations
  *
  * @component
  */
 
-import { ChevronLeft, ChevronRight } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import { useCarousel } from '../../utils/useCarousel';
+import { storage } from '../../utils/storage';
 
 export const PromotionsSection = () => {
   const { scrollContainerRef, showLeftArrow, showRightArrow, scroll, checkScroll } = useCarousel();
+  const [wishlistedBundles, setWishlistedBundles] = useState<Set<number>>(new Set());
 
   const promotions = [
     {
@@ -32,7 +36,7 @@ export const PromotionsSection = () => {
       imageUrl: '/images/products/luxe-hydration-bundle.png',
       title: 'hydration bundle',
       description: 'Complete moisture therapy for all skin types',
-      price: '$189.99',
+      price: '189.99',
       originalPrice: '$249.99',
       ctaText: 'shop bundle',
     },
@@ -47,7 +51,7 @@ export const PromotionsSection = () => {
       imageUrl: '/images/products/luxe-clarifying-bundle.png',
       title: 'clarifying bundle',
       description: 'Purifying skincare for clear, balanced complexion',
-      price: '$169.99',
+      price: '169.99',
       originalPrice: '$219.99',
       ctaText: 'shop bundle',
     },
@@ -56,7 +60,7 @@ export const PromotionsSection = () => {
       imageUrl: '/images/products/luxe-anti-aging-bundle.png',
       title: 'anti-aging bundle',
       description: 'Powerful ingredients for youthful, firm skin',
-      price: '$209.99',
+      price: '209.99',
       originalPrice: '$279.99',
       ctaText: 'shop bundle',
     },
@@ -65,7 +69,7 @@ export const PromotionsSection = () => {
       imageUrl: '/images/products/luxe-botanical-bundle.png',
       title: 'botanical bundle',
       description: 'Natural plant-based skincare for gentle nourishment',
-      price: '$159.99',
+      price: '159.99',
       originalPrice: '$199.99',
       ctaText: 'shop bundle',
     },
@@ -74,11 +78,41 @@ export const PromotionsSection = () => {
       imageUrl: '/images/products/luxe-glow-bundle.png',
       title: 'glow bundle',
       description: 'Luminous complexion essentials for radiant skin',
-      price: '$179.99',
+      price: '179.99',
       originalPrice: '$229.99',
       ctaText: 'shop bundle',
     },
   ];
+
+  useEffect(() => {
+    const updateWishlist = () => {
+      const wishlist = storage.getWishlist();
+      const wishlistedIds = new Set(wishlist.map(item => parseInt(item.id.replace('bundle-', ''))));
+      setWishlistedBundles(wishlistedIds);
+    };
+
+    updateWishlist();
+    window.addEventListener('wishlist-updated', updateWishlist);
+    return () => window.removeEventListener('wishlist-updated', updateWishlist);
+  }, []);
+
+  const toggleWishlist = (e: React.MouseEvent, promo: typeof promotions[0]) => {
+    e.stopPropagation();
+    const bundleId = `bundle-${promo.id}`;
+    const isWishlisted = wishlistedBundles.has(promo.id);
+
+    if (isWishlisted) {
+      storage.removeFromWishlist(bundleId, undefined);
+    } else {
+      storage.addToWishlist({
+        id: bundleId,
+        name: promo.title,
+        price: promo.price || '0',
+        imageUrl: promo.imageUrl || '',
+        size: undefined,
+      });
+    }
+  };
 
   return (
     <section className="bg-gray-50 py-12 md:py-16 lg:py-20" aria-label="Current Promotions">
@@ -90,7 +124,7 @@ export const PromotionsSection = () => {
           </h2>
           <a
             href="#"
-            className="text-sm md:text-base font-medium underline hover:no-underline transition-all"
+            className="text-sm md:text-base font-medium underline hover:no-underline transition-all duration-300 hover:text-gray-600 hover:translate-x-1 inline-block"
           >
             view all
           </a>
@@ -156,13 +190,31 @@ export const PromotionsSection = () => {
                 ) : (
                   /* Standard Image Card */
                   <div className="flex flex-col h-full">
-                    <div className="aspect-[3/4] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100">
+                    <div className="aspect-[3/4] overflow-hidden bg-gradient-to-br from-gray-50 to-gray-100 relative">
                       {promo.imageUrl ? (
-                        <img
-                          src={promo.imageUrl}
-                          alt={promo.title}
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
-                        />
+                        <>
+                          <img
+                            src={promo.imageUrl}
+                            alt={promo.title}
+                            className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700"
+                          />
+                          {/* Wishlist Button */}
+                          <button
+                            onClick={(e) => toggleWishlist(e, promo)}
+                            className="absolute top-3 right-3 p-2 bg-white rounded-full shadow-md hover:shadow-lg transition-all duration-300 z-10 hover:scale-110 active:scale-95"
+                            aria-label={wishlistedBundles.has(promo.id) ? 'Remove from wishlist' : 'Add to wishlist'}
+                          >
+                            <Heart
+                              size={18}
+                              className={`transition-all duration-300 ${
+                                wishlistedBundles.has(promo.id)
+                                  ? 'fill-red-500 text-red-500'
+                                  : 'text-gray-600 hover:text-red-500'
+                              }`}
+                              strokeWidth={2}
+                            />
+                          </button>
+                        </>
                       ) : null}
                     </div>
                     <div className="p-6 md:p-8 flex flex-col flex-1">
@@ -176,7 +228,7 @@ export const PromotionsSection = () => {
                       )}
                       {promo.price && (
                         <div className="flex items-center gap-2 mb-4">
-                          <span className="text-lg md:text-xl font-semibold">{promo.price}</span>
+                          <span className="text-lg md:text-xl font-semibold">${promo.price}</span>
                           {promo.originalPrice && (
                             <span className="text-sm text-gray-400 line-through">{promo.originalPrice}</span>
                           )}

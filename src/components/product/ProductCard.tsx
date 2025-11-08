@@ -48,29 +48,34 @@ export const ProductCard = ({
   const [isWishlisted, setIsWishlisted] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
 
+  // Default size for quick add from listing page
+  const defaultSize = '50ml';
+
   useEffect(() => {
-    setIsWishlisted(storage.isInWishlist(id));
+    // For listing pages, check if any size is wishlisted
+    setIsWishlisted(storage.isInWishlist(id, defaultSize));
 
     const handleWishlistUpdate = () => {
-      setIsWishlisted(storage.isInWishlist(id));
+      setIsWishlisted(storage.isInWishlist(id, defaultSize));
     };
 
     window.addEventListener('wishlist-updated', handleWishlistUpdate);
     return () => window.removeEventListener('wishlist-updated', handleWishlistUpdate);
-  }, [id]);
+  }, [id, defaultSize]);
 
   const toggleWishlist = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
 
     if (isWishlisted) {
-      storage.removeFromWishlist(id);
+      storage.removeFromWishlist(id, defaultSize);
     } else {
       storage.addToWishlist({
         id,
         name: displayTitle,
         price,
         imageUrl: imageUrl || '',
+        size: defaultSize,
       });
     }
   };
@@ -85,6 +90,7 @@ export const ProductCard = ({
       name: displayTitle,
       price,
       imageUrl: imageUrl || '',
+      size: defaultSize,
     });
 
     setTimeout(() => setIsAdding(false), 600);
@@ -160,7 +166,7 @@ export const ProductCard = ({
         {/* Delivery Info */}
         <div className="flex items-center gap-2 text-xs text-gray-600 pt-1">
           <Truck size={14} className="flex-shrink-0" />
-          <span>Delivery with fitting</span>
+          <span>Free shipping over $75</span>
         </div>
       </div>
     </Link>

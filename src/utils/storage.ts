@@ -34,22 +34,22 @@ export const storage = {
 
   addToWishlist(item: WishlistItem): void {
     const wishlist = this.getWishlist();
-    const exists = wishlist.find((i) => i.id === item.id);
+    const exists = wishlist.find((i) => i.id === item.id && i.size === item.size);
     if (!exists) {
       wishlist.push(item);
       this.setWishlist(wishlist);
     }
   },
 
-  removeFromWishlist(itemId: string): void {
+  removeFromWishlist(itemId: string, size?: string): void {
     const wishlist = this.getWishlist();
-    const filtered = wishlist.filter((i) => i.id !== itemId);
+    const filtered = wishlist.filter((i) => !(i.id === itemId && i.size === size));
     this.setWishlist(filtered);
   },
 
-  isInWishlist(itemId: string): boolean {
+  isInWishlist(itemId: string, size?: string): boolean {
     const wishlist = this.getWishlist();
-    return wishlist.some((i) => i.id === itemId);
+    return wishlist.some((i) => i.id === itemId && i.size === size);
   },
 
   getCart(): CartItem[] {
@@ -73,7 +73,7 @@ export const storage = {
 
   addToCart(item: Omit<CartItem, 'quantity'>, quantity: number = 1): void {
     const cart = this.getCart();
-    const existingItem = cart.find((i) => i.id === item.id);
+    const existingItem = cart.find((i) => i.id === item.id && i.size === item.size);
 
     if (existingItem) {
       existingItem.quantity += quantity;
@@ -84,19 +84,19 @@ export const storage = {
     this.setCart(cart);
   },
 
-  removeFromCart(itemId: string): void {
+  removeFromCart(itemId: string, size?: string): void {
     const cart = this.getCart();
-    const filtered = cart.filter((i) => i.id !== itemId);
+    const filtered = cart.filter((i) => !(i.id === itemId && i.size === size));
     this.setCart(filtered);
   },
 
-  updateCartQuantity(itemId: string, quantity: number): void {
+  updateCartQuantity(itemId: string, quantity: number, size?: string): void {
     const cart = this.getCart();
-    const item = cart.find((i) => i.id === itemId);
+    const item = cart.find((i) => i.id === itemId && i.size === size);
 
     if (item) {
       if (quantity <= 0) {
-        this.removeFromCart(itemId);
+        this.removeFromCart(itemId, size);
       } else {
         item.quantity = quantity;
         this.setCart(cart);

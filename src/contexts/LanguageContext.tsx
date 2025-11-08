@@ -192,7 +192,7 @@ const translations: Translations = {
   // Product Card
   'product.new': { en: 'NEW', ru: 'NEW' },
   'product.addToCart': { en: 'Add to Cart', ru: 'В корзину' },
-  'product.delivery': { en: 'Delivery with fitting', ru: 'Доставка с примеркой' },
+  'product.delivery': { en: 'Free shipping over $75', ru: 'Бесплатная доставка от $75' },
 
   // Promotions Section
   'promotions.title': { en: 'promotions', ru: 'акции' },
@@ -245,7 +245,7 @@ const translations: Translations = {
   'footer.loyalty': { en: 'Loyalty Program', ru: 'Программа лояльности' },
   'footer.cookies': { en: 'Cookie Settings', ru: 'Настройка Cookie' },
   'footer.promotions': { en: 'Promotions and Discounts', ru: 'Акции и скидки' },
-  'footer.fitting': { en: 'Fitting', ru: 'Примерка' },
+  'footer.skincareTips': { en: 'Skincare Tips', ru: 'Советы по уходу' },
   'footer.sizeGuide': { en: 'Size Guide', ru: 'Подобрать размер' },
   'footer.faq': { en: 'FAQ', ru: 'FAQ' },
   'footer.certificate': { en: 'About Certificate', ru: 'О сертификате' },

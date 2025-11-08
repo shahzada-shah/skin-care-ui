@@ -33,8 +33,8 @@ export const WishlistDropdown = ({ isOpen }: WishlistDropdownProps) => {
     return () => window.removeEventListener('wishlist-updated', handleUpdate);
   }, []);
 
-  const handleRemove = (id: string) => {
-    storage.removeFromWishlist(id);
+  const handleRemove = (id: string, size?: string) => {
+    storage.removeFromWishlist(id, size);
   };
 
   const handleAddAllToCart = () => {
@@ -44,6 +44,7 @@ export const WishlistDropdown = ({ isOpen }: WishlistDropdownProps) => {
         name: item.name,
         price: item.price,
         imageUrl: item.imageUrl,
+        size: item.size,
       });
     });
     storage.clearWishlist();
@@ -74,7 +75,7 @@ export const WishlistDropdown = ({ isOpen }: WishlistDropdownProps) => {
             <div className="max-h-96 overflow-y-auto">
               {wishlistItems.map((item, index) => (
                 <div
-                  key={item.id}
+                  key={`${item.id}-${item.size || 'default'}`}
                   className="flex gap-3 px-4 py-3 hover:bg-gray-50 transition-colors duration-200 animate-fadeIn"
                   style={{ animationDelay: `${index * 50}ms` }}
                 >
@@ -91,10 +92,13 @@ export const WishlistDropdown = ({ isOpen }: WishlistDropdownProps) => {
                   </div>
                   <div className="flex-1 min-w-0">
                     <h4 className="text-sm font-medium text-gray-900 truncate">{item.name}</h4>
+                    {item.size && (
+                      <p className="text-xs text-gray-500 mt-0.5">{item.size}</p>
+                    )}
                     <p className="text-sm text-gray-600 mt-1">${item.price}</p>
                   </div>
                   <button
-                    onClick={() => handleRemove(item.id)}
+                    onClick={() => handleRemove(item.id, item.size)}
                     className="text-gray-400 hover:text-red-500 transition-colors duration-200 hover:scale-110 active:scale-95"
                     aria-label="Remove from wishlist"
                   >

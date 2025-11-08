@@ -90,6 +90,10 @@ export interface Product {
   isNew?: boolean;
   color?: string;
   sizes?: string[];
+  benefits?: string[];
+  keyIngredients?: string;
+  fullIngredients?: string;
+  howToUse?: string[];
 }
 
 /**
@@ -119,6 +123,7 @@ export interface CartItem {
   price: string;
   quantity: number;
   imageUrl: string;
+  size?: string;
 }
 
 /**
@@ -144,6 +149,7 @@ export interface WishlistItem {
   name: string;
   price: string;
   imageUrl: string;
+  size?: string;
 }
 
 /**

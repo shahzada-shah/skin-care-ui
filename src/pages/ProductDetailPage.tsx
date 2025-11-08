@@ -51,47 +51,55 @@ export const ProductDetailPage = () => {
   const { id } = useParams();
   const product = mockProducts.find((p) => p.id === id) || mockProducts[0];
 
-  const [selectedColor, setSelectedColor] = useState(product.color || 'Black');
-  const [selectedSize, setSelectedSize] = useState(product.sizes?.[0] || '38');
+  const [selectedSize, setSelectedSize] = useState('50ml');
   const [quantity, setQuantity] = useState(1);
   const [selectedImage, setSelectedImage] = useState(0);
-  const [isWishlisted, setIsWishlisted] = useState(storage.isInWishlist(product.id));
+  const [isWishlisted, setIsWishlisted] = useState(
+    storage.isInWishlist(product.id, '50ml')
+  );
 
-  const availableColors = [
-    { name: 'Black', hex: '#000000' },
-    { name: 'Beige', hex: '#E8DCC4' },
-    { name: 'Gray', hex: '#9CA3AF' },
-  ];
-
+  const availableSizes = ['30ml', '50ml', '100ml'];
   const thumbnails = [0, 1, 2, 3];
 
+  // Update wishlist state when size changes
+  const handleSizeChange = (size: string) => {
+    setSelectedSize(size);
+    setIsWishlisted(storage.isInWishlist(product.id, size));
+  };
+
   const handleAddToCart = () => {
-    storage.addToCart({
-      id: product.id,
-      name: product.name,
-      price: product.price,
-      imageUrl: product.imageUrl,
-      quantity,
-    });
+    storage.addToCart(
+      {
+        id: product.id,
+        name: product.name,
+        price: product.price,
+        imageUrl: product.imageUrl,
+        size: selectedSize,
+      },
+      quantity
+    );
   };
 
   const toggleWishlist = () => {
     if (isWishlisted) {
-      storage.removeFromWishlist(product.id);
+      storage.removeFromWishlist(product.id, selectedSize);
     } else {
       storage.addToWishlist({
         id: product.id,
         name: product.name,
         price: product.price,
         imageUrl: product.imageUrl,
+        size: selectedSize,
       });
     }
     setIsWishlisted(!isWishlisted);
   };
 
-  const relatedProducts = mockProducts
-    .filter((p) => p.category === product.category && p.id !== product.id)
-    .slice(0, 4);
+  // Mock similar products for the carousel
+  const similarProducts = mockProducts.slice(0, 6).map(p => ({
+    ...p,
+    imageUrl: p.imageUrl || '/images/products/luxe-hydrating-mist.png'
+  }));
 
   return (
     <div className="min-h-screen bg-white">
@@ -102,11 +110,11 @@ export const ProductDetailPage = () => {
             HOME
           </Link>
           <span className="mx-2">/</span>
-          <Link to="/new" className="hover:text-black transition-colors">
-            WOMEN
+          <Link to="/catalog" className="hover:text-black transition-colors">
+            SHOP
           </Link>
           <span className="mx-2">/</span>
-          <span>NEW COLLECTION</span>
+          <span>{product.category || 'SKINCARE'}</span>
         </nav>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12">
@@ -119,34 +127,47 @@ export const ProductDetailPage = () => {
                   <button
                     key={index}
                     onClick={() => setSelectedImage(index)}
-                    className={`aspect-[3/4] bg-gray-50 rounded overflow-hidden border-2 transition-all duration-200 ${
+                    className={`aspect-[3/4] bg-gradient-to-br from-gray-50 to-gray-100 rounded overflow-hidden border-2 transition-all duration-200 ${
                       selectedImage === index
                         ? 'border-black shadow-sm'
                         : 'border-gray-200 hover:border-gray-400'
                     }`}
                   >
-                    <div className="w-full h-full bg-gradient-to-br from-gray-100 to-gray-50 flex items-center justify-center">
-                      <ImagePlaceholder
-                        width={80}
-                        height={120}
-                        label=""
-                        className="h-full w-full"
+                    {index === 0 && product.imageUrl ? (
+                      <img
+                        src={product.imageUrl}
+                        alt={`${product.name} thumbnail`}
+                        className="w-full h-full object-cover"
                       />
-                    </div>
+                    ) : (
+                      <div className="w-full h-full flex items-center justify-center p-1">
+                        <div className="text-center">
+                          <div className="text-[8px] font-light tracking-wider text-gray-400">LUXE</div>
+                        </div>
+                      </div>
+                    )}
                   </button>
                 ))}
               </div>
 
               {/* Main Image */}
-              <div className="flex-1 aspect-[3/4] bg-gradient-to-br from-gray-100 to-gray-50 rounded-lg overflow-hidden shadow-sm">
-                <div className="w-full h-full flex items-center justify-center p-8">
-                  <div className="border-2 border-dashed border-gray-300 w-full h-3/4 flex items-center justify-center rounded">
-                    <div className="text-center text-gray-400">
-                      <div className="text-sm font-medium mb-1">MAIN PRODUCT IMAGE</div>
-                      <div className="text-xs">800 × 1200</div>
+              <div className="flex-1 aspect-[3/4] bg-gradient-to-br from-gray-50 to-gray-100 rounded-lg overflow-hidden shadow-sm">
+                {product.imageUrl ? (
+                  <img
+                    src={product.imageUrl}
+                    alt={product.name}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  <div className="w-full h-full flex items-center justify-center p-8">
+                    <div className="border-2 border-dashed border-gray-300 w-full h-3/4 flex items-center justify-center rounded">
+                      <div className="text-center text-gray-400">
+                        <div className="text-sm font-medium mb-1">LUXE PRODUCT</div>
+                        <div className="text-xs">800 × 1200</div>
+                      </div>
                     </div>
                   </div>
-                </div>
+                )}
               </div>
             </div>
           </div>
@@ -159,54 +180,27 @@ export const ProductDetailPage = () => {
                 {product.name}
               </h1>
 
-              {/* Product Code */}
-              <p className="text-sm text-gray-500 mb-6">from viscose LBD 3332</p>
+              {/* Product Type */}
+              <p className="text-sm text-gray-500 mb-6">{product.category || 'Skincare Treatment'}</p>
 
               {/* Price */}
               <div className="text-3xl md:text-4xl font-light mb-8">
                 ${product.price}
               </div>
 
-              {/* Color Selection */}
+              {/* Size/Volume Selection */}
               <div className="mb-8">
                 <div className="flex items-center justify-between mb-4">
                   <span className="text-sm font-medium uppercase tracking-wide">
-                    COLOR: {selectedColor.toUpperCase()}
+                    SIZE: {selectedSize}
                   </span>
                 </div>
-                <div className="flex gap-3">
-                  {availableColors.map((color) => (
-                    <button
-                      key={color.name}
-                      onClick={() => setSelectedColor(color.name)}
-                      className={`w-10 h-10 rounded-full border-2 transition-all duration-200 ${
-                        selectedColor === color.name
-                          ? 'border-black ring-2 ring-black ring-offset-2 scale-110'
-                          : 'border-gray-300 hover:border-gray-500 hover:scale-105'
-                      }`}
-                      style={{ backgroundColor: color.hex }}
-                      aria-label={color.name}
-                    />
-                  ))}
-                </div>
-              </div>
-
-              {/* Size Selection */}
-              <div className="mb-8">
-                <div className="flex items-center justify-between mb-4">
-                  <span className="text-sm font-medium uppercase tracking-wide">
-                    SIZE:
-                  </span>
-                  <button className="text-xs text-gray-500 hover:text-black transition-colors underline underline-offset-2">
-                    Size Chart
-                  </button>
-                </div>
-                <div className="grid grid-cols-6 gap-2">
-                  {product.sizes?.map((size) => (
+                <div className="grid grid-cols-3 gap-3">
+                  {availableSizes.map((size) => (
                     <button
                       key={size}
-                      onClick={() => setSelectedSize(size)}
-                      className={`py-3 text-sm border transition-all duration-200 ${
+                      onClick={() => handleSizeChange(size)}
+                      className={`py-3 px-4 text-sm border rounded transition-all duration-200 ${
                         selectedSize === size
                           ? 'border-black bg-black text-white shadow-sm'
                           : 'border-gray-300 hover:border-black hover:shadow-sm'
@@ -275,62 +269,94 @@ export const ProductDetailPage = () => {
 
               {/* Store Link */}
               <button className="text-sm text-gray-500 hover:text-black transition-colors underline underline-offset-2 mb-8">
-                Available in Stores
+                Find in Stores
               </button>
 
               {/* Collapsible Sections */}
               <div className="border-t border-gray-200">
-                <CollapsibleSection title="COMPOSITION">
-                  <p className="text-gray-700">
-                    The bodysuit made of soft ribbed fabric with viscose helps create
-                    a minimalist casual look and will be an excellent addition to your
-                    basic wardrobe.
-                  </p>
-                  <ul className="list-disc list-inside space-y-1.5 mt-4 text-gray-600">
-                    <li>round neckline with placket</li>
-                    <li>long sleeves</li>
-                    <li>snap fastening at bottom</li>
-                    <li>placket with functional buttons</li>
-                    <li>new finishing with narrow strip tape</li>
-                    <li>brazilian style panties</li>
-                  </ul>
+                <CollapsibleSection title="KEY BENEFITS" defaultOpen>
+                  {product.benefits && product.benefits.length > 0 ? (
+                    <ul className="list-disc list-inside space-y-1.5 text-gray-600">
+                      {product.benefits.map((benefit, index) => (
+                        <li key={index}>{benefit}</li>
+                      ))}
+                    </ul>
+                  ) : (
+                    <>
+                      <p className="text-gray-700 mb-4">
+                        Advanced formula designed to deliver visible results while nourishing and protecting your skin.
+                      </p>
+                      <ul className="list-disc list-inside space-y-1.5 text-gray-600">
+                        <li>Deeply hydrates and moisturizes</li>
+                        <li>Improves skin texture and tone</li>
+                        <li>Reduces fine lines and wrinkles</li>
+                        <li>Dermatologist tested and approved</li>
+                        <li>Suitable for all skin types</li>
+                        <li>Cruelty-free and vegan formula</li>
+                      </ul>
+                    </>
+                  )}
                 </CollapsibleSection>
 
-                <CollapsibleSection title="ABOUT PRODUCT">
+                <CollapsibleSection title="INGREDIENTS">
                   <div className="space-y-3 text-gray-700">
-                    <p>
-                      <span className="font-medium">Composition:</span> 95% viscose, 5%
-                      elastane
-                    </p>
-                    <p>
-                      <span className="font-medium">Care:</span> delicate wash
-                      at temperature not exceeding 30°C
-                    </p>
-                    <p>
-                      <span className="font-medium">Made in:</span> Belarus
-                    </p>
+                    {product.keyIngredients && (
+                      <p>
+                        <span className="font-medium">Key Ingredients:</span> {product.keyIngredients}
+                      </p>
+                    )}
+                    {product.fullIngredients && (
+                      <p className="text-sm text-gray-600">
+                        {product.fullIngredients}
+                      </p>
+                    )}
+                    {!product.keyIngredients && !product.fullIngredients && (
+                      <>
+                        <p>
+                          <span className="font-medium">Key Ingredients:</span> Hyaluronic Acid, Vitamin C, Niacinamide, Peptides, Ceramides
+                        </p>
+                        <p className="text-sm text-gray-600">
+                          Aqua, Glycerin, Sodium Hyaluronate, Ascorbic Acid, Niacinamide, Palmitoyl Tripeptide-5, Ceramide NP, Tocopherol, Panthenol
+                        </p>
+                      </>
+                    )}
                   </div>
+                </CollapsibleSection>
+
+                <CollapsibleSection title="HOW TO USE">
+                  {product.howToUse && product.howToUse.length > 0 ? (
+                    <ol className="list-decimal list-inside space-y-2 text-gray-700">
+                      {product.howToUse.map((step, index) => (
+                        <li key={index}>{step}</li>
+                      ))}
+                    </ol>
+                  ) : (
+                    <div className="space-y-3 text-gray-700">
+                      <p>
+                        <span className="font-medium">Morning & Evening:</span> Apply 2-3 drops to cleansed face and neck
+                      </p>
+                      <p>
+                        <span className="font-medium">Pro Tip:</span> Gently pat into skin for better absorption
+                      </p>
+                      <p>
+                        <span className="font-medium">Follow with:</span> Your favorite moisturizer and SPF during the day
+                      </p>
+                    </div>
+                  )}
                 </CollapsibleSection>
               </div>
             </div>
           </div>
         </div>
 
-        {/* Related Products */}
-        {relatedProducts.length > 0 && (
-          <div className="mt-20 md:mt-28 border-t border-gray-100 pt-16">
-            <div className="flex items-center justify-between mb-10">
-              <h2 className="text-2xl md:text-3xl font-light">similar</h2>
-              <Link
-                to="/new"
-                className="text-sm underline underline-offset-2 hover:text-gray-600 transition-colors"
-              >
-                VIEW ALL
-              </Link>
-            </div>
-            <ProductCarousel products={relatedProducts} />
-          </div>
-        )}
+        {/* Similar Products */}
+        <div className="mt-20 md:mt-28 border-t border-gray-100 pt-16">
+          <ProductCarousel
+            title="similar"
+            viewAllLink="/catalog"
+            products={similarProducts}
+          />
+        </div>
       </div>
     </div>
   );

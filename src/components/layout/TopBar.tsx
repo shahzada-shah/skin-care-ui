@@ -1,7 +1,7 @@
 /**
  * TopBar Component
  *
- * Top utility bar with certificates, contact info, and delivery information.
+ * Top utility bar with certifications, contact info, and delivery information.
  * Responsive: Hides on mobile, shows condensed on tablet, full on desktop.
  *
  * @component
@@ -35,9 +35,9 @@ export const TopBar = () => {
     <div className="bg-gray-50 border-b border-gray-200 py-2 hidden md:block">
       <div className="max-w-[1400px] mx-auto px-4 md:px-6">
         <div className="flex justify-end items-center gap-6 text-[11px] text-gray-600">
-          <TopBarItem icon="award" text="CERTIFICATES" />
-          <TopBarItem icon="mail" text="shop@luxeshop.com" />
-          <TopBarItem icon="truck" text="DELIVERY WITH FITTING" />
+          <TopBarItem icon="award" text="DERMATOLOGIST TESTED" />
+          <TopBarItem icon="mail" text="hello@luxeskincare.com" />
+          <TopBarItem icon="truck" text="FREE SHIPPING OVER $75" />
         </div>
       </div>
     </div>

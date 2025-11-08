@@ -19,16 +19,16 @@ import type { DropdownProps } from '../../types';
 export const CatalogDropdown = ({ isOpen }: DropdownProps) => {
   const CATALOG_CATEGORIES = [
     {
-      title: "WOMEN'S CLOTHING",
-      items: ['Dresses', 'Blouses', 'Pants', 'Skirts', 'Outerwear'],
+      title: 'FACE CARE',
+      items: ['Cleansers', 'Serums', 'Moisturizers', 'Eye Care', 'Face Masks'],
     },
     {
-      title: "MEN'S CLOTHING",
-      items: ['Shirts', 'Pants', 'Sweaters', 'Outerwear', 'Accessories'],
+      title: 'TREATMENTS',
+      items: ['Anti-Aging', 'Brightening', 'Hydration', 'Acne Care', 'Sun Protection'],
     },
     {
       title: 'COLLECTIONS',
-      items: ['New Arrivals', 'Bestsellers', 'Sale', 'Premium', 'Casual'],
+      items: ['New Arrivals', 'Bestsellers', 'Bundles', 'Travel Size', 'Gift Sets'],
     },
   ];
 

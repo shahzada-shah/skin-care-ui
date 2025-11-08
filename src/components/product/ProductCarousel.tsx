@@ -47,7 +47,7 @@ export const ProductCarousel = ({
         </h2>
         <a
           href={viewAllLink}
-          className="text-xs md:text-sm font-medium uppercase tracking-wide border-b-2 border-black hover:border-gray-600 transition-colors duration-300 pb-1"
+          className="text-xs md:text-sm font-medium uppercase tracking-wide border-b-2 border-black hover:border-gray-600 transition-all duration-300 pb-1 hover:translate-x-1 inline-block hover:text-gray-600"
         >
           view all
         </a>

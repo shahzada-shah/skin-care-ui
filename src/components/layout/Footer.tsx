@@ -21,44 +21,44 @@ export const Footer = () => {
 
   const FOOTER_SECTIONS = {
     service: {
-      title: 'SERVICE',
+      title: 'CUSTOMER CARE',
       links: [
-        { label: 'Sales Rules', href: '#' },
-        { label: 'Loyalty Program', href: '#' },
-        { label: 'Cookie Settings', href: '#' },
+        { label: 'Shipping & Returns', href: '#' },
+        { label: 'Rewards Program', href: '#' },
+        { label: 'Order Tracking', href: '#' },
       ],
     },
     additional: {
-      title: 'ADDITIONAL',
+      title: 'DISCOVER',
       links: [
-        { label: 'Promotions and Discounts', href: '#' },
-        { label: 'Fitting', href: '#' },
-        { label: 'Size Guide', href: '#' },
+        { label: 'Special Offers', href: '#' },
+        { label: 'Skincare Quiz', href: '#' },
+        { label: 'Ingredient Glossary', href: '#' },
         { label: 'FAQ', href: '#' },
-        { label: 'About Certificate', href: '#' },
+        { label: 'Sustainability', href: '#' },
         { label: 'Contact Us', href: '/contacts' },
-        { label: 'Blog', href: '#' },
+        { label: 'Beauty Journal', href: '#' },
       ],
     },
     shop: {
-      title: 'LUXESHOP',
+      title: 'LUXE SKINCARE',
       links: [
-        { label: 'Catalog', href: '/catalog' },
-        { label: 'About Company', href: '#' },
+        { label: 'Shop All', href: '/catalog' },
+        { label: 'Our Story', href: '#' },
         { label: 'Privacy Policy', href: '#' },
-        { label: 'Store Locations', href: '#' },
-        { label: 'Partnership and Advertising', href: '#' },
+        { label: 'Store Locator', href: '#' },
+        { label: 'Professional Partners', href: '#' },
         { label: 'Blog', href: '#' },
       ],
     },
     info: {
-      title: 'INFORMATION',
+      title: 'COMPANY',
       links: [
-        { label: 'Sitemap', href: '#' },
-        { label: 'Advanced Search', href: '#' },
-        { label: 'Certificates', href: '#' },
-        { label: 'Careers at Luxe', href: '#' },
-        { label: 'Franchise at Luxe', href: '#' },
+        { label: 'About Us', href: '#' },
+        { label: 'Product Finder', href: '#' },
+        { label: 'Certifications', href: '#' },
+        { label: 'Careers', href: '#' },
+        { label: 'Press & Media', href: '#' },
       ],
     },
   };
@@ -83,13 +83,13 @@ export const Footer = () => {
   };
 
   return (
-    <footer className="bg-[#1a1a1a] text-white">
-      <div className="border-b border-gray-800">
+    <footer className="bg-gradient-to-b from-[#1a1a1a] to-black text-white">
+      <div className="border-b border-gray-800/50">
         <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-12 md:py-16 lg:py-20">
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-8 md:gap-10 lg:gap-12">
             {Object.values(FOOTER_SECTIONS).map((section, idx) => (
               <div key={idx}>
-                <h3 className="text-sm font-semibold mb-6 tracking-wider">
+                <h3 className="text-xs font-semibold mb-6 tracking-[0.15em] text-gray-300">
                   {section.title}
                 </h3>
                 <ul className="space-y-3">
@@ -97,7 +97,7 @@ export const Footer = () => {
                     <li key={index}>
                       <Link
                         to={link.href}
-                        className="text-sm text-gray-400 hover:text-white transition-colors duration-300"
+                        className="text-sm text-gray-400 hover:text-white transition-colors duration-300 inline-block hover:translate-x-0.5 transform"
                       >
                         {link.label}
                       </Link>
@@ -108,20 +108,30 @@ export const Footer = () => {
             ))}
 
             <div>
-              <h3 className="text-sm font-semibold mb-6 tracking-wider">CONTACTS</h3>
+              <h3 className="text-sm font-semibold mb-6 tracking-wider">CONNECT</h3>
               <div className="space-y-4 text-sm text-gray-400">
                 <div>
-                  <p className="font-medium text-white mb-1">+375 17 336 42 83</p>
-                  <p className="text-xs">8:00 - 23:00</p>
+                  <p className="font-medium text-white mb-1">1-800-LUXE-SKIN</p>
+                  <p className="text-xs">Mon-Fri 9:00 - 18:00 EST</p>
                 </div>
                 <div>
-                  <a href="mailto:shop@luxeshop.com" className="hover:text-white transition-colors">
-                    shop@luxeshop.com
+                  <a href="mailto:hello@luxeskincare.com" className="hover:text-white transition-colors duration-300">
+                    hello@luxeskincare.com
                   </a>
                 </div>
-                <div>
-                  <p>Republic of Belarus,</p>
-                  <p>Minsk, ul. Nemiga 5</p>
+                <div className="pt-2">
+                  <p className="text-xs text-gray-500 mb-2">FOLLOW US</p>
+                  <div className="flex gap-4">
+                    <a href="https://instagram.com/luxeskincare" target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors duration-300" aria-label="Instagram">
+                      IG
+                    </a>
+                    <a href="#" className="hover:text-white transition-colors duration-300" aria-label="Facebook">
+                      FB
+                    </a>
+                    <a href="#" className="hover:text-white transition-colors duration-300" aria-label="TikTok">
+                      TK
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
@@ -129,17 +139,21 @@ export const Footer = () => {
         </div>
       </div>
 
-      <div className="bg-black">
-        <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-8">
-          <div className="flex flex-col items-center gap-3">
+      <div className="bg-black/95 backdrop-blur-sm">
+        <div className="max-w-[1400px] mx-auto px-4 md:px-6 py-6">
+          <div className="flex flex-col items-center gap-4">
+            <p className="text-xs text-gray-500 text-center">
+              © {new Date().getFullYear()} LUXE Skincare. All rights reserved.
+            </p>
+            
             <div
               onMouseEnter={handleMouseEnter}
               onMouseLeave={handleMouseLeave}
-              className="text-xs tracking-[0.2em] text-gray-500 hover:text-gray-300 transition-all duration-300 uppercase font-light group text-center px-4"
+              className="text-[10px] tracking-[0.2em] text-gray-600 hover:text-gray-400 transition-all duration-300 uppercase font-light group text-center px-4 cursor-default"
               aria-label="Development credits"
             >
               <span className="inline-block group-hover:scale-[1.02] transition-transform duration-300">
-                DEVELOPED BY KAZI DIGITAL STUDIO
+                Crafted by Kazi Digital Studio
               </span>
             </div>
 
@@ -150,10 +164,10 @@ export const Footer = () => {
                   : 'max-h-0 opacity-0'
               }`}
             >
-              <p className="text-[11px] text-gray-600 text-center leading-relaxed pt-2 px-4">
-                <span className="inline-block">Shahzada Shah - Lead Senior Developer</span>
-                <span className="mx-2 text-gray-700 hidden sm:inline">|</span>
-                <span className="inline-block">Jimmy Carrera - Lead Designer</span>
+              <p className="text-[10px] text-gray-700 text-center leading-relaxed px-4">
+                <span className="inline-block">Shahzada Shah — Lead Developer</span>
+                <span className="mx-2 text-gray-800 hidden sm:inline">•</span>
+                <span className="inline-block">Jimmy Carrera — Creative Director</span>
               </p>
             </div>
           </div>
