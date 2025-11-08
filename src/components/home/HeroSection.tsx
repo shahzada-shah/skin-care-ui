@@ -21,22 +21,20 @@ import { CategoryCard } from './CategoryCard';
 export const HeroSection = () => {
   return (
     <section
-      className="grid grid-cols-1 md:grid-cols-2 h-auto md:h-[calc(100vh-180px)] min-h-[600px] md:min-h-[700px] animate-fadeIn"
+      className="grid grid-cols-1 md:grid-cols-2 h-[calc(100vh-64px)] md:h-[calc(100vh-120px)] animate-fadeIn"
       aria-label="Featured Collections"
     >
       <CategoryCard
         title="Women"
-        imageUrl="/women-collection.jpg"
-        subtitle="NEW WOMEN'S CLOTHING COLLECTIONS FROM LUXE"
+        imageUrl="/images/categories/women-collection.png"
+        subtitle="Discover radiant, healthy skin with our women's skincare collection"
       />
 
-      <div className="md:border-l border-gray-200">
-        <CategoryCard
-          title="Men"
-          imageUrl="/men-collection.jpg"
-          subtitle="NEW MEN'S CLOTHING COLLECTIONS FROM LUXE"
-        />
-      </div>
+      <CategoryCard
+        title="Men"
+        imageUrl="/images/categories/men-collection.png"
+        subtitle="Premium grooming essentials designed for men's unique skin needs"
+      />
     </section>
   );
 };
