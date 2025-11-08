@@ -16,6 +16,7 @@ import { ImagePlaceholder } from '../components/common';
 import { ProductCarousel } from '../components/product';
 import { mockProducts } from '../data/mockProducts';
 import { storage } from '../utils/storage';
+import { getImagePath } from '../utils/paths';
 
 interface CollapsibleSectionProps {
   title: string;
@@ -98,7 +99,7 @@ export const ProductDetailPage = () => {
   // Mock similar products for the carousel
   const similarProducts = mockProducts.slice(0, 6).map(p => ({
     ...p,
-    imageUrl: p.imageUrl || '/images/products/luxe-hydrating-mist.png'
+    imageUrl: p.imageUrl || getImagePath('images/products/luxe-hydrating-mist.png')
   }));
 
   return (

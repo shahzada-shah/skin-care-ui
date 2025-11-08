@@ -20,6 +20,7 @@
 
 import { CategoryCircle } from './CategoryCircle';
 import { ProductCarousel } from '../product/ProductCarousel';
+import { getImagePath } from '../../utils/paths';
 
 const PRODUCTS = [
   {
@@ -27,54 +28,54 @@ const PRODUCTS = [
     title: 'LUXE Hydrating Serum with Hyaluronic Acid',
     price: '89.99',
     isNew: true,
-    imageUrl: '/images/products/luxe-hydrating-mist.png',
+    imageUrl: getImagePath('images/products/luxe-hydrating-mist.png'),
   },
   {
     id: 'vitamin-c-brightening',
     title: 'LUXE Vitamin C Brightening Complex',
     price: '79.99',
     isNew: true,
-    imageUrl: '/images/products/luxe-clarifying-drops.png',
+    imageUrl: getImagePath('images/products/luxe-clarifying-drops.png'),
   },
   {
     id: 'night-repair-cream',
     title: 'LUXE Night Repair Moisturizer',
     price: '129.99',
     isNew: true,
-    imageUrl: '/images/products/luxe-renewal-cream.png',
+    imageUrl: getImagePath('images/products/luxe-renewal-cream.png'),
   },
   {
     id: 'gentle-cleanser',
     title: 'LUXE Gentle Foaming Cleanser',
     price: '45.99',
     isNew: true,
-    imageUrl: '/images/products/luxe-purity-cleanser.png',
+    imageUrl: getImagePath('images/products/luxe-purity-cleanser.png'),
   },
   {
     id: 'radiance-essence',
     title: 'LUXE Radiance Boosting Essence',
     price: '95.99',
     isNew: true,
-    imageUrl: '/images/products/luxe-radiance-essence.png',
+    imageUrl: getImagePath('images/products/luxe-radiance-essence.png'),
   },
   {
     id: 'barrier-serum',
     title: 'LUXE Barrier Repair Serum',
     price: '109.99',
     isNew: true,
-    imageUrl: '/images/products/luxe-barrier-serum.png',
+    imageUrl: getImagePath('images/products/luxe-barrier-serum.png'),
   },
 ];
 
 export const CategoriesSection = () => {
   const CATEGORIES = [
-    { label: 'FACE CARE', href: '/category/face-care', icon: '/images/categories/icons/face-care.png' },
-    { label: 'BODY CARE', href: '/category/body-care', icon: '/images/categories/icons/body-care.png' },
-    { label: 'SERUMS', href: '/category/serums', icon: '/images/categories/icons/serums.png' },
-    { label: 'MOISTURIZER', href: '/category/moisturizer', icon: '/images/categories/icons/moisturizer.png' },
-    { label: 'CLEANSER', href: '/category/cleanser', icon: '/images/categories/icons/cleanser.png' },
-    { label: 'FACIAL MASK', href: '/category/facial-mask', icon: '/images/categories/icons/facial-mask.png' },
-    { label: 'SUN CARE', href: '/category/sun-care', icon: '/images/categories/icons/sun-care.png' },
+    { label: 'FACE CARE', href: '/category/face-care', icon: getImagePath('images/categories/icons/face-care.png') },
+    { label: 'BODY CARE', href: '/category/body-care', icon: getImagePath('images/categories/icons/body-care.png') },
+    { label: 'SERUMS', href: '/category/serums', icon: getImagePath('images/categories/icons/serums.png') },
+    { label: 'MOISTURIZER', href: '/category/moisturizer', icon: getImagePath('images/categories/icons/moisturizer.png') },
+    { label: 'CLEANSER', href: '/category/cleanser', icon: getImagePath('images/categories/icons/cleanser.png') },
+    { label: 'FACIAL MASK', href: '/category/facial-mask', icon: getImagePath('images/categories/icons/facial-mask.png') },
+    { label: 'SUN CARE', href: '/category/sun-care', icon: getImagePath('images/categories/icons/sun-care.png') },
   ];
 
   return (

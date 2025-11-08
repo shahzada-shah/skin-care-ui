@@ -20,6 +20,7 @@
 import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import { storage } from '../../utils/storage';
+import { getImagePath } from '../../utils/paths';
 
 export const FeaturedSection = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -28,16 +29,16 @@ export const FeaturedSection = () => {
   const featuredProducts = [
     {
       id: 'featured-cleanser',
-      modelImage: '/images/products/luxe-hydrating-cleanser-model-ony.png',
-      productImage: '/images/products/luxe-hydrating-cleanser-product-only.png',
+      modelImage: getImagePath('images/products/luxe-hydrating-cleanser-model-ony.png'),
+      productImage: getImagePath('images/products/luxe-hydrating-cleanser-product-only.png'),
       title: 'LUXE Hydrating Cleanser',
       description: 'Gentle foaming formula that deeply cleanses while maintaining skin\'s natural moisture barrier',
       price: '45.99',
     },
     {
       id: 'featured-serum',
-      modelImage: '/images/products/luxe-revive-serum-model-only.png',
-      productImage: '/images/products/luxe-revive-serum-product-only.png',
+      modelImage: getImagePath('images/products/luxe-revive-serum-model-only.png'),
+      productImage: getImagePath('images/products/luxe-revive-serum-product-only.png'),
       title: 'LUXE Revive Serum',
       description: 'Powerful concentrated formula that rejuvenates and restores radiance for youthful-looking skin',
       price: '95.99',
@@ -187,7 +188,7 @@ export const FeaturedSection = () => {
           <div className="rounded-2xl overflow-hidden aspect-[4/3] lg:aspect-auto lg:min-h-[500px] order-1 lg:order-2 group cursor-pointer hover-lift">
             <div className="transition-transform duration-700 ease-out group-hover:scale-105">
               <img
-                src="/images/products/luxe-giftcard.png"
+                src={getImagePath('images/products/luxe-giftcard.png')}
                 alt="LUXE Gift Certificate"
                 className="w-full h-full object-cover rounded-2xl"
               />

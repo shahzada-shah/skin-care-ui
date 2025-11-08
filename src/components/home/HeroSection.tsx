@@ -17,6 +17,7 @@
  */
 
 import { CategoryCard } from './CategoryCard';
+import { getImagePath } from '../../utils/paths';
 
 export const HeroSection = () => {
   return (
@@ -26,13 +27,13 @@ export const HeroSection = () => {
     >
       <CategoryCard
         title="Women"
-        imageUrl="/images/categories/women-collection.png"
+        imageUrl={getImagePath('images/categories/women-collection.png')}
         subtitle="Discover radiant, healthy skin with our women's skincare collection"
       />
 
       <CategoryCard
         title="Men"
-        imageUrl="/images/categories/men-collection.png"
+        imageUrl={getImagePath('images/categories/men-collection.png')}
         subtitle="Premium grooming essentials designed for men's unique skin needs"
       />
     </section>

@@ -23,13 +23,15 @@
  * @component
  */
 
+import { getImagePath } from '../../utils/paths';
+
 const instagramPosts = [
-  { id: 1, imageUrl: '/images/instagram/ig_01.png', aspectRatio: '3/4' },
-  { id: 2, imageUrl: '/images/instagram/ig_02.png', aspectRatio: '3/4' },
-  { id: 3, imageUrl: '/images/instagram/ig_03.png', aspectRatio: '3/4' },
-  { id: 4, imageUrl: '/images/instagram/ig_4.png', aspectRatio: '3/4' },
-  { id: 5, imageUrl: '/images/instagram/ig_5.png', aspectRatio: '3/4' },
-  { id: 6, imageUrl: '/images/instagram/ig_06.png', aspectRatio: '3/4' },
+  { id: 1, imageUrl: getImagePath('images/instagram/ig_01.png'), aspectRatio: '3/4' },
+  { id: 2, imageUrl: getImagePath('images/instagram/ig_02.png'), aspectRatio: '3/4' },
+  { id: 3, imageUrl: getImagePath('images/instagram/ig_03.png'), aspectRatio: '3/4' },
+  { id: 4, imageUrl: getImagePath('images/instagram/ig_4.png'), aspectRatio: '3/4' },
+  { id: 5, imageUrl: getImagePath('images/instagram/ig_5.png'), aspectRatio: '3/4' },
+  { id: 6, imageUrl: getImagePath('images/instagram/ig_06.png'), aspectRatio: '3/4' },
 ];
 
 export const InstagramSection = () => {

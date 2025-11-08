@@ -25,6 +25,7 @@ import { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, Heart } from 'lucide-react';
 import { useCarousel } from '../../utils/useCarousel';
 import { storage } from '../../utils/storage';
+import { getImagePath } from '../../utils/paths';
 
 export const PromotionsSection = () => {
   const { scrollContainerRef, showLeftArrow, showRightArrow, scroll, checkScroll } = useCarousel();
@@ -33,7 +34,7 @@ export const PromotionsSection = () => {
   const promotions = [
     {
       id: 1,
-      imageUrl: '/images/products/luxe-hydration-bundle.png',
+      imageUrl: getImagePath('images/products/luxe-hydration-bundle.png'),
       title: 'hydration bundle',
       description: 'Complete moisture therapy for all skin types',
       price: '189.99',
@@ -48,7 +49,7 @@ export const PromotionsSection = () => {
     },
     {
       id: 3,
-      imageUrl: '/images/products/luxe-clarifying-bundle.png',
+      imageUrl: getImagePath('images/products/luxe-clarifying-bundle.png'),
       title: 'clarifying bundle',
       description: 'Purifying skincare for clear, balanced complexion',
       price: '169.99',
@@ -57,7 +58,7 @@ export const PromotionsSection = () => {
     },
     {
       id: 4,
-      imageUrl: '/images/products/luxe-anti-aging-bundle.png',
+      imageUrl: getImagePath('images/products/luxe-anti-aging-bundle.png'),
       title: 'anti-aging bundle',
       description: 'Powerful ingredients for youthful, firm skin',
       price: '209.99',
@@ -66,7 +67,7 @@ export const PromotionsSection = () => {
     },
     {
       id: 5,
-      imageUrl: '/images/products/luxe-botanical-bundle.png',
+      imageUrl: getImagePath('images/products/luxe-botanical-bundle.png'),
       title: 'botanical bundle',
       description: 'Natural plant-based skincare for gentle nourishment',
       price: '159.99',
@@ -75,7 +76,7 @@ export const PromotionsSection = () => {
     },
     {
       id: 6,
-      imageUrl: '/images/products/luxe-glow-bundle.png',
+      imageUrl: getImagePath('images/products/luxe-glow-bundle.png'),
       title: 'glow bundle',
       description: 'Luminous complexion essentials for radiant skin',
       price: '179.99',
