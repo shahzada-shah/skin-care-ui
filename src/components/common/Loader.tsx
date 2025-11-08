@@ -69,7 +69,7 @@ export const Loader = ({ onLoadingComplete }: LoaderProps) => {
 
         {/* Optional subtitle */}
         <p className="mt-4 text-sm md:text-base tracking-widest text-gray-400 uppercase animate-fade-in-delayed">
-          Fashion & Style
+          Skincare & Beauty
         </p>
       </div>
 
