@@ -30,6 +30,7 @@ interface ProductCardProps {
   price: string;
   isNew?: boolean;
   currency?: string;
+  imageUrl?: string;
 }
 
 export const ProductCard = ({
@@ -39,7 +40,8 @@ export const ProductCard = ({
   title,
   price,
   isNew = false,
-  currency = 'BYN'
+  currency = 'BYN',
+  imageUrl
 }: ProductCardProps) => {
   const displayTitle = nameEn || name || title || '';
   const displayCurrency = '$';
@@ -68,7 +70,7 @@ export const ProductCard = ({
         id,
         name: displayTitle,
         price,
-        imageUrl: '',
+        imageUrl: imageUrl || '',
       });
     }
   };
@@ -82,7 +84,7 @@ export const ProductCard = ({
       id,
       name: displayTitle,
       price,
-      imageUrl: '',
+      imageUrl: imageUrl || '',
     });
 
     setTimeout(() => setIsAdding(false), 600);
@@ -114,9 +116,17 @@ export const ProductCard = ({
           />
         </button>
 
-        {/* Wireframe Image Placeholder */}
-        <div className="transition-transform duration-700 ease-out group-hover:scale-105">
-          <ImagePlaceholder width={600} height={800} label="PRODUCT IMAGE" className="h-full rounded-lg" />
+        {/* Product Image */}
+        <div className="transition-transform duration-700 ease-out group-hover:scale-105 h-full">
+          {imageUrl ? (
+            <img
+              src={imageUrl}
+              alt={displayTitle}
+              className="w-full h-full object-cover rounded-lg"
+            />
+          ) : (
+            <ImagePlaceholder width={600} height={800} label="PRODUCT IMAGE" className="h-full rounded-lg" />
+          )}
         </div>
 
         {/* Add to Cart Button - Appears on hover */}
@@ -139,7 +149,7 @@ export const ProductCard = ({
       <div className="space-y-2">
         {/* Price */}
         <div className="text-lg md:text-xl font-semibold">
-          {price} {displayCurrency}
+          {displayCurrency}{price}
         </div>
 
         {/* Title */}

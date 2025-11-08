@@ -127,6 +127,7 @@ export const ProductCarousel = ({
                 title={product.title}
                 price={product.price}
                 isNew={product.isNew}
+                imageUrl={product.imageUrl}
               />
             ))}
           </div>
