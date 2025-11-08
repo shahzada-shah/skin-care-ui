@@ -8,10 +8,11 @@
  */
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Mail, Lock, User, Eye, EyeOff } from 'lucide-react';
+import { Link, useNavigate } from 'react-router-dom';
+import { Mail, Lock, User, Eye, EyeOff, Check, X } from 'lucide-react';
 
 export const SignUpPage = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     firstName: '',
     lastName: '',
@@ -23,15 +24,27 @@ export const SignUpPage = () => {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [subscribe, setSubscribe] = useState(true);
+  const [showPasswordRequirements, setShowPasswordRequirements] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Handle sign up logic here
     console.log('Sign up:', formData);
+    // Redirect to homepage after successful signup
+    navigate('/');
   };
 
   const handleChange = (field: string, value: string) => {
     setFormData((prev) => ({ ...prev, [field]: value }));
+  };
+
+  // Password requirements validation
+  const passwordRequirements = {
+    minLength: formData.password.length >= 8,
+    hasUpperCase: /[A-Z]/.test(formData.password),
+    hasLowerCase: /[a-z]/.test(formData.password),
+    hasNumber: /[0-9]/.test(formData.password),
+    hasSpecialChar: /[!@#$%^&*(),.?":{}|<>]/.test(formData.password),
   };
 
   return (
@@ -65,6 +78,7 @@ export const SignUpPage = () => {
                     onChange={(e) => handleChange('firstName', e.target.value)}
                     placeholder="John"
                     className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                    autoComplete="off"
                     required
                   />
                 </div>
@@ -80,6 +94,7 @@ export const SignUpPage = () => {
                   onChange={(e) => handleChange('lastName', e.target.value)}
                   placeholder="Doe"
                   className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                  autoComplete="off"
                   required
                 />
               </div>
@@ -99,6 +114,7 @@ export const SignUpPage = () => {
                   onChange={(e) => handleChange('email', e.target.value)}
                   placeholder="hello@luxeskincare.com"
                   className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                  autoComplete="off"
                   required
                 />
               </div>
@@ -116,8 +132,10 @@ export const SignUpPage = () => {
                   type={showPassword ? 'text' : 'password'}
                   value={formData.password}
                   onChange={(e) => handleChange('password', e.target.value)}
-                  placeholder="Minimum 8 characters"
+                  onFocus={() => setShowPasswordRequirements(true)}
+                  placeholder="Create a strong password"
                   className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                  autoComplete="new-password"
                   required
                   minLength={8}
                 />
@@ -129,6 +147,65 @@ export const SignUpPage = () => {
                   {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
                 </button>
               </div>
+
+              {/* Password Requirements */}
+              {showPasswordRequirements && formData.password && (
+                <div className="mt-3 p-3 bg-gray-50 rounded-lg border border-gray-200 animate-fadeIn">
+                  <p className="text-xs font-medium text-gray-700 mb-2">Password must contain:</p>
+                  <div className="space-y-1.5">
+                    <div className="flex items-center gap-2">
+                      {passwordRequirements.minLength ? (
+                        <Check size={14} className="text-green-600" />
+                      ) : (
+                        <X size={14} className="text-gray-400" />
+                      )}
+                      <span className={`text-xs ${passwordRequirements.minLength ? 'text-green-600' : 'text-gray-600'}`}>
+                        At least 8 characters
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {passwordRequirements.hasUpperCase ? (
+                        <Check size={14} className="text-green-600" />
+                      ) : (
+                        <X size={14} className="text-gray-400" />
+                      )}
+                      <span className={`text-xs ${passwordRequirements.hasUpperCase ? 'text-green-600' : 'text-gray-600'}`}>
+                        One uppercase letter
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {passwordRequirements.hasLowerCase ? (
+                        <Check size={14} className="text-green-600" />
+                      ) : (
+                        <X size={14} className="text-gray-400" />
+                      )}
+                      <span className={`text-xs ${passwordRequirements.hasLowerCase ? 'text-green-600' : 'text-gray-600'}`}>
+                        One lowercase letter
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {passwordRequirements.hasNumber ? (
+                        <Check size={14} className="text-green-600" />
+                      ) : (
+                        <X size={14} className="text-gray-400" />
+                      )}
+                      <span className={`text-xs ${passwordRequirements.hasNumber ? 'text-green-600' : 'text-gray-600'}`}>
+                        One number
+                      </span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {passwordRequirements.hasSpecialChar ? (
+                        <Check size={14} className="text-green-600" />
+                      ) : (
+                        <X size={14} className="text-gray-400" />
+                      )}
+                      <span className={`text-xs ${passwordRequirements.hasSpecialChar ? 'text-green-600' : 'text-gray-600'}`}>
+                        One special character (!@#$%^&*)
+                      </span>
+                    </div>
+                  </div>
+                </div>
+              )}
             </div>
 
             {/* Confirm Password Input */}
@@ -145,6 +222,7 @@ export const SignUpPage = () => {
                   onChange={(e) => handleChange('confirmPassword', e.target.value)}
                   placeholder="Re-enter password"
                   className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                  autoComplete="new-password"
                   required
                 />
                 <button

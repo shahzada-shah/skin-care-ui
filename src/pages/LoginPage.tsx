@@ -8,10 +8,11 @@
  */
 
 import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Mail, Lock, Eye, EyeOff } from 'lucide-react';
 
 export const LoginPage = () => {
+  const navigate = useNavigate();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
@@ -21,6 +22,8 @@ export const LoginPage = () => {
     e.preventDefault();
     // Handle login logic here
     console.log('Login:', { email, password, rememberMe });
+    // Redirect to homepage after successful login
+    navigate('/');
   };
 
   return (
@@ -53,6 +56,7 @@ export const LoginPage = () => {
                   onChange={(e) => setEmail(e.target.value)}
                   placeholder="hello@luxeskincare.com"
                   className="w-full pl-12 pr-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                  autoComplete="off"
                   required
                 />
               </div>
@@ -72,6 +76,7 @@ export const LoginPage = () => {
                   onChange={(e) => setPassword(e.target.value)}
                   placeholder="Enter your password"
                   className="w-full pl-12 pr-12 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black transition-colors"
+                  autoComplete="off"
                   required
                 />
                 <button

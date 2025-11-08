@@ -280,6 +280,7 @@ export const CheckoutPage = () => {
                       value={shippingInfo.email}
                       onChange={(e) => setShippingInfo({ ...shippingInfo, email: e.target.value })}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                      autoComplete="off"
                       required
                     />
                   </div>
@@ -292,6 +293,7 @@ export const CheckoutPage = () => {
                       value={shippingInfo.phone}
                       onChange={(e) => setShippingInfo({ ...shippingInfo, phone: e.target.value })}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                      autoComplete="off"
                       required
                     />
                   </div>
@@ -304,6 +306,7 @@ export const CheckoutPage = () => {
                       value={shippingInfo.address}
                       onChange={(e) => setShippingInfo({ ...shippingInfo, address: e.target.value })}
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                      autoComplete="off"
                       required
                     />
                   </div>
@@ -413,6 +416,7 @@ export const CheckoutPage = () => {
                       onChange={(e) => setPaymentInfo({ ...paymentInfo, cardName: e.target.value })}
                       placeholder="John Doe"
                       className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:outline-none focus:border-black"
+                      autoComplete="off"
                       required
                     />
                   </div>
