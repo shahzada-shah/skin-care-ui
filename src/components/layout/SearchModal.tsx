@@ -10,8 +10,11 @@
  * <SearchModal isOpen={true} onClose={() => setOpen(false)} />
  */
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useMemo } from 'react';
+import { Link } from 'react-router-dom';
 import { Search, X, TrendingUp, Clock } from 'lucide-react';
+import { mockProducts } from '../../data/mockProducts';
+import type { Product } from '../../types';
 
 interface SearchModalProps {
   isOpen: boolean;
@@ -35,11 +38,28 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
     'Vitamin C',
   ];
 
+  // Dynamic search filtering
+  const searchResults = useMemo(() => {
+    if (!searchQuery.trim()) return [];
+
+    const query = searchQuery.toLowerCase();
+    
+    return mockProducts.filter((product) => {
+      const nameMatch = product.name.toLowerCase().includes(query);
+      const categoryMatch = product.category.toLowerCase().includes(query);
+      const descriptionMatch = product.description?.toLowerCase().includes(query);
+      
+      return nameMatch || categoryMatch || descriptionMatch;
+    }).slice(0, 8); // Limit to 8 results
+  }, [searchQuery]);
+
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'unset';
+      // Clear search when modal closes
+      setSearchQuery('');
     }
 
     const handleEscape = (e: KeyboardEvent) => {
@@ -151,33 +171,45 @@ export const SearchModal = ({ isOpen, onClose }: SearchModalProps) => {
           ) : (
             <div className="space-y-3 animate-fadeIn">
               <h3 className="text-sm font-semibold text-gray-900 uppercase mb-4">
-                Search Results
+                Search Results ({searchResults.length})
               </h3>
-              {[
-                { name: "LUXE Hydrating Serum", category: 'Serums', price: '89.99' },
-                { name: 'LUXE Night Repair Cream', category: 'Moisturizers', price: '129.99' },
-                { name: 'LUXE Gentle Cleanser', category: 'Cleansers', price: '45.99' },
-                { name: 'LUXE Vitamin C Complex', category: 'Treatments', price: '79.99' },
-              ].map((product, index) => (
-                <button
-                  key={product.name}
-                  className="w-full text-left p-3 md:p-4 hover:bg-gray-50 rounded-lg transition-all duration-200 flex items-center gap-3 md:gap-4 group animate-fadeIn"
-                  style={{ animationDelay: `${index * 50}ms` }}
-                >
-                  <div className="w-12 h-12 md:w-16 md:h-16 bg-gray-100 rounded flex items-center justify-center flex-shrink-0 group-hover:bg-gray-200 transition-colors">
-                    <div className="text-[10px] md:text-xs text-gray-400">IMG</div>
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <h4 className="text-xs md:text-sm font-medium text-gray-900 group-hover:text-black transition-colors truncate">
-                      {product.name}
-                    </h4>
-                    <p className="text-[10px] md:text-xs text-gray-500 mt-0.5 md:mt-1">{product.category}</p>
-                  </div>
-                  <div className="text-xs md:text-sm font-semibold text-gray-900 whitespace-nowrap">
-                    ${product.price}
-                  </div>
-                </button>
-              ))}
+              {searchResults.length === 0 ? (
+                <div className="text-center py-12">
+                  <p className="text-sm text-gray-500">No products found for "{searchQuery}"</p>
+                  <p className="text-xs text-gray-400 mt-2">Try searching for something else</p>
+                </div>
+              ) : (
+                searchResults.map((product, index) => (
+                  <Link
+                    key={product.id}
+                    to={`/product/${product.id}`}
+                    onClick={onClose}
+                    className="w-full text-left p-3 md:p-4 hover:bg-gray-50 rounded-lg transition-all duration-200 flex items-center gap-3 md:gap-4 group animate-fadeIn block"
+                    style={{ animationDelay: `${index * 50}ms` }}
+                  >
+                    <div className="w-12 h-12 md:w-16 md:h-16 bg-gradient-to-br from-gray-50 to-gray-100 rounded overflow-hidden flex items-center justify-center flex-shrink-0 group-hover:shadow-md transition-all">
+                      {product.imageUrl ? (
+                        <img
+                          src={product.imageUrl}
+                          alt={product.name}
+                          className="w-full h-full object-cover"
+                        />
+                      ) : (
+                        <div className="text-[10px] md:text-xs text-gray-400">LUXE</div>
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h4 className="text-xs md:text-sm font-medium text-gray-900 group-hover:text-black transition-colors truncate">
+                        {product.name}
+                      </h4>
+                      <p className="text-[10px] md:text-xs text-gray-500 mt-0.5 md:mt-1">{product.category}</p>
+                    </div>
+                    <div className="text-xs md:text-sm font-semibold text-gray-900 whitespace-nowrap">
+                      ${product.price}
+                    </div>
+                  </Link>
+                ))
+              )}
             </div>
           )}
         </div>
