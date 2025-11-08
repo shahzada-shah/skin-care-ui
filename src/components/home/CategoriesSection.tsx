@@ -23,102 +23,73 @@ import { ProductCarousel } from '../product/ProductCarousel';
 
 const PRODUCTS = [
   {
-    id: 'sweater-striped-green',
-    title: "Women's Striped Sweater CE LDK24121",
-    price: '149,99',
+    id: 'hydrating-serum',
+    title: 'LUXE Hydrating Serum with Hyaluronic Acid',
+    price: '89.99',
     isNew: true,
+    imageUrl: '/images/products/luxe-hydrating-mist.png',
   },
   {
-    id: 'top-black-buttons',
-    title: "Women's Black Top with Buttons CE LDK24122",
-    price: '89,99',
+    id: 'vitamin-c-brightening',
+    title: 'LUXE Vitamin C Brightening Complex',
+    price: '79.99',
     isNew: true,
+    imageUrl: '/images/products/luxe-clarifying-drops.png',
   },
   {
-    id: 'pants-wide-black',
-    title: "Women's Wide Black Pants CE LDK24123",
-    price: '199,99',
+    id: 'night-repair-cream',
+    title: 'LUXE Night Repair Moisturizer',
+    price: '129.99',
     isNew: true,
+    imageUrl: '/images/products/luxe-renewal-cream.png',
   },
   {
-    id: 'sweater-oversized-gray',
-    title: "Women's Oversized Gray Sweater CE LDK24124",
-    price: '169,99',
+    id: 'gentle-cleanser',
+    title: 'LUXE Gentle Foaming Cleanser',
+    price: '45.99',
     isNew: true,
+    imageUrl: '/images/products/luxe-purity-cleanser.png',
   },
   {
-    id: 'sweater-knit-beige',
-    title: "Women's Knit Beige Sweater CE LDK24125",
-    price: '139,99',
+    id: 'radiance-essence',
+    title: 'LUXE Radiance Boosting Essence',
+    price: '95.99',
     isNew: true,
+    imageUrl: '/images/products/luxe-radiance-essence.png',
   },
   {
-    id: 'cardigan-long-cream',
-    title: "Women's Long Cream Cardigan CE LDK24126",
-    price: '229,99',
+    id: 'barrier-serum',
+    title: 'LUXE Barrier Repair Serum',
+    price: '109.99',
     isNew: true,
-  },
-  {
-    id: 'dress-midi-black',
-    title: "Women's Midi Black Dress CE LDK24127",
-    price: '179,99',
-    isNew: true,
-  },
-  {
-    id: 'blazer-classic-navy',
-    title: "Women's Classic Navy Blazer CE LDK24128",
-    price: '299,99',
-    isNew: true,
-  },
-  {
-    id: 'skirt-pleated-beige',
-    title: "Women's Pleated Beige Skirt CE LDK24129",
-    price: '119,99',
-    isNew: false,
-  },
-  {
-    id: 'shirt-silk-white',
-    title: "Women's Silk White Shirt CE LDK24130",
-    price: '159,99',
-    isNew: false,
-  },
-  {
-    id: 'jeans-straight-blue',
-    title: "Women's Straight Blue Jeans CE LDK24131",
-    price: '149,99',
-    isNew: false,
-  },
-  {
-    id: 'coat-wool-camel',
-    title: "Women's Wool Camel Coat CE LDK24132",
-    price: '449,99',
-    isNew: true,
+    imageUrl: '/images/products/luxe-barrier-serum.png',
   },
 ];
 
 export const CategoriesSection = () => {
   const CATEGORIES = [
-    { label: 'CLOTHING', href: '/category/clothing' },
-    { label: 'JEANS', href: '/category/jeans' },
-    { label: 'LINGERIE', href: '/category/lingerie' },
-    { label: 'ACCESSORIES', href: '/category/accessories' },
-    { label: 'SLEEPWEAR', href: '/category/sleepwear' },
-    { label: 'TIGHTS', href: '/category/tights' },
-    { label: 'SWIMWEAR', href: '/category/swimwear' },
+    { label: 'FACE CARE', href: '/category/face-care', icon: '/images/categories/icons/face-care.png' },
+    { label: 'BODY CARE', href: '/category/body-care', icon: '/images/categories/icons/body-care.png' },
+    { label: 'SERUMS', href: '/category/serums', icon: '/images/categories/icons/serums.png' },
+    { label: 'MOISTURIZER', href: '/category/moisturizer', icon: '/images/categories/icons/moisturizer.png' },
+    { label: 'CLEANSER', href: '/category/cleanser', icon: '/images/categories/icons/cleanser.png' },
+    { label: 'FACIAL MASK', href: '/category/facial-mask', icon: '/images/categories/icons/facial-mask.png' },
+    { label: 'SUN CARE', href: '/category/sun-care', icon: '/images/categories/icons/sun-care.png' },
   ];
 
   return (
-    <section className="bg-white py-12 md:py-16 lg:py-20 overflow-hidden" aria-label="Categories and New Arrivals">
+    <section className="bg-white py-12 md:py-16 lg:py-20" aria-label="Categories and New Arrivals">
       <div className="max-w-[1400px] mx-auto px-4 md:px-6">
         {/* Category Navigation Circles */}
-        <nav className="mb-16 md:mb-20 lg:mb-24 py-8" aria-label="Product Categories">
-          <div className="overflow-x-auto scrollbar-hide -mx-4 px-4 md:mx-0 md:px-0">
-            <div className="flex md:grid md:grid-cols-4 lg:grid-cols-7 gap-8 md:gap-10 lg:gap-12 min-w-max md:min-w-0 justify-start md:justify-center pb-4">
+        <nav className="mb-16 md:mb-20 lg:mb-24 py-12 md:py-16" aria-label="Product Categories">
+          <div className="overflow-x-auto scrollbar-hide px-8 md:px-4">
+            <div className="flex md:grid md:grid-cols-4 lg:grid-cols-7 gap-8 md:gap-10 lg:gap-12 min-w-max md:min-w-0 justify-start md:justify-center pb-6 pt-2">
               {CATEGORIES.map((category) => (
                 <CategoryCircle
                   key={category.label}
                   label={category.label}
                   href={category.href}
+                  imageUrl={category.icon}
                 />
               ))}
             </div>
